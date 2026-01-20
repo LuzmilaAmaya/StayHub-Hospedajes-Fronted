@@ -1,12 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ReservationsPage from "./pages/ReservationsPage";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
+ feat/rooms
     <>
       <div>
        holaaa
@@ -14,6 +12,12 @@ function App() {
     
     </>
   )
-}
 
-export default App
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/reservas" element={<ReservationsPage />} />
+      </Routes>
+    </BrowserRouter>
+  ); dev
+}
