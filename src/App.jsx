@@ -4,15 +4,11 @@ import ReservationsPage from "./pages/ReservationsPage";
 
 export default function App() {
   return (
-    <>
-      <div>holaaa</div>
-
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/reservas" element={<ReservationsPage />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/reservas" element={<ReservationsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
