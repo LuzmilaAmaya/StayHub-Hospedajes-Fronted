@@ -10,5 +10,5 @@ export default function App() {
         <Route path="/reservas" element={<ReservationsPage />} />
       </Routes>
     </BrowserRouter>
-  ); 
+  );
 }
