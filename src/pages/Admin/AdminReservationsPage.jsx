@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getReservations } from "../services/reservation.service";
+import { getReservations } from "../../services/reservation.service";
 
 export default function AdminReservationsPage() {
   const [reservations, setReservations] = useState([]);
