@@ -1,29 +1,32 @@
 import Lottie from "lottie-react";
-import notFoundAnimation from "../assets/lotties/404.json";
 import { Link } from "react-router-dom";
+import notFoundAnimation from "../assets/lotties/404.json";
 
 export default function NotFoundPage() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-      }}
-    >
-      <div style={{ width: 350 }}>
-        <Lottie animationData={notFoundAnimation} loop />
+    <div className="container-fluid bg-light min-vh-100 d-flex align-items-center justify-content-center">
+      <div className="row w-100 justify-content-center">
+        <div className="col-12 col-md-8 col-lg-6 text-center">
+
+          {/* Animación */}
+          <div className="mx-auto mb-4" style={{ maxWidth: 380 }}>
+            <Lottie animationData={notFoundAnimation} loop />
+          </div>
+
+          {/* Texto */}
+          <h1 className="display-5 fw-bold">404</h1>
+          <h4 className="mb-3">Página no encontrada</h4>
+          <p className="text-muted mb-4">
+            La página que estás buscando no existe o fue movida.
+          </p>
+
+          {/* Botón */}
+          <Link to="/" className="btn btn-primary btn-lg px-4">
+            Volver al inicio
+          </Link>
+
+        </div>
       </div>
-
-      <h2>Página no encontrada</h2>
-      <p>La ruta que buscás no existe.</p>
-
-      <Link to="/" className="btn btn-primary mt-3">
-        Volver al inicio
-      </Link>
     </div>
   );
 }
