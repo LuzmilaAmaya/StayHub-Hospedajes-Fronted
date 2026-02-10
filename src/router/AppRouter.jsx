@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ReservationsPage from "../pages/MyReservationsPage";
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
-import AdminRoomPage from "./pages/AdminRoomPage";
+import AdminRoomPage from "../pages/Admin/AdminRoomsPage";
 
 export default function AppRouter() {
   return (
