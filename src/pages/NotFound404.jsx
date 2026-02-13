@@ -9,20 +9,20 @@ export default function NotFoundPage() {
         <div className="col-12 col-md-8 col-lg-6 text-center">
 
           {/* Animación */}
-          <div className="mx-auto mb-4" style={{ maxWidth: 380 }}>
+          <div className="mx-auto mb-4" style={{ maxWidth: 550 }}>
             <Lottie animationData={notFoundAnimation} loop />
           </div>
 
           {/* Texto */}
           <h1 className="display-5 fw-bold">404</h1>
-          <h4 className="mb-3">Página no encontrada</h4>
+          <h4 className="mb-3"> Ups! pagina no encontrada</h4>
           <p className="text-muted mb-4">
-            La página que estás buscando no existe o fue movida.
+            La página que estás buscando no existe o fue movida...
           </p>
 
           {/* Botón */}
-          <Link to="/" className="btn btn-primary btn-lg px-4">
-            Volver al inicio
+          <Link to="/" className="btn btn-danger btn-lg px-4">
+            Volver al Lobby
           </Link>
 
         </div>
