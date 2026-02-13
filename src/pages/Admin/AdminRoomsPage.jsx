@@ -22,17 +22,10 @@ export default function AdminRoomPage() {
     e.preventDefault();
 
     if (isEditing) {
-      setRooms(
-        rooms.map((room) =>
-          room.id === form.id ? form : room
-        )
-      );
+      setRooms(rooms.map((room) => (room.id === form.id ? form : room)));
       setIsEditing(false);
     } else {
-      setRooms([
-        ...rooms,
-        { ...form, id: Date.now() },
-      ]);
+      setRooms([...rooms, { ...form, id: Date.now() }]);
     }
 
     setForm(initialForm);

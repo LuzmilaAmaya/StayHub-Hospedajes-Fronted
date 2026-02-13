@@ -1,0 +1,88 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.text-primary-custom {
+  color: #B4280D !important;
+}
+
+.bg-primary-custom {
+  background-color: #B4280D !important;
+}
+
+.btn-primary-custom {
+  background-color: #B4280D !important;
+  border-color: #B4280D !important;
+  color: white !important;
+}
+
+/* HERO */
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+  url('https://cdn.discordapp.com/attachments/1464358594529988659/1464387549194747947/ChatGPT_Image_23_ene_2026_07_31_51_p.m..png?ex=69904f6e&is=698efdee&hm=9c7b96e85b59183983e6fffc1fea133f708a56de9132df130e900f1064b0dd47&');
+  background-size: cover;
+  background-position: center;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.hero-badge {
+  background: rgba(180, 40, 13, 0.8);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  max-width: 700px;
+}
+
+/* SEARCH BOX */
+.search-box {
+  background: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+/* CARD EFFECT */
+.photo-card {
+  transition: 0.3s ease;
+  border-radius: 1rem;
+}
+
+.photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.15);
+}
+
+.card-img-container {
+  overflow: hidden;
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.photo-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* EXPERIENCE BADGE */
+.experience-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: #B4280D;
+  color: white;
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
