@@ -1,59 +1,68 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+import logo from "../assets/logonegro.png";
 
 export default function HomePage() {
   return (
     <div>
 
-      {/* ================= NAVBAR ================= */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
-        <div className="container">
-          <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
-            <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
-              <span className="material-icons text-white">hotel</span>
-            </div>
-            <span className="text-dark">STAYHUB</span>
+     {/* ================= NAVBAR ================= */}
+<nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+  <div className="container">
+    <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
+      
+      <img
+        src={logo}
+        alt="StayHub Logo"
+        className="navbar-logo me-2"
+      />
+
+      <span className="text-dark">STAYHUB</span>
+    </Link>
+
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <Link className="nav-link fw-semibold px-3" to="/habitaciones">
+            Habitaciones
           </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link fw-semibold px-3" to="#">
+            Destinos
+          </Link>
+        </li>
+        <li className="nav-link fw-semibold px-3" to="#">
+            Servicios
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link fw-semibold px-3" to="/reservas">
+            Mi reserva
+          </Link>
+        </li>
+      </ul>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+      <div className="d-flex gap-2 align-items-center">
+        <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
+          Iniciar Sesión
+        </Link>
+        <Link className="btn btn-primary-custom rounded-pill px-4 fw-bold" to="/register">
+          Crear Cuenta
+        </Link>
+      </div>
+    </div>
+  </div>
+</nav>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="/rooms">
-                  Habitaciones
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="#">
-                  Destinos
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="#">
-                  Servicios
-                </Link>
-              </li>
-            </ul>
-
-            <div className="d-flex gap-2 align-items-center">
-              <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
-                Iniciar Sesión
-              </Link>
-              <Link className="btn btn-primary-custom rounded-pill px-4 fw-bold" to="/register">
-                Crear Cuenta
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* ================= HERO ================= */}
       <header className="hero-section text-center py-5">
@@ -175,12 +184,84 @@ export default function HomePage() {
 
       {/* ================= FOOTER ================= */}
       <footer className="py-5 border-top bg-white">
-        <div className="container">
-          <p className="text-muted text-center mb-0">
-            © 2024 StayHub S.A. Todos los derechos reservados.
-          </p>
+  <div className="container py-5">
+    <div className="row g-5">
+
+      {/* LOGO + DESCRIPCIÓN */}
+      <div className="col-lg-4">
+        <div className="d-flex align-items-center fw-bold mb-4">
+          <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
+            <span className="material-icons text-white">hotel</span>
+          </div>
+          <span className="text-dark">STAYHUB</span>
         </div>
-      </footer>
+
+        <p className="footer-text">
+          Elevando el estándar de la hospitalidad moderna a través de diseños 
+          excepcionales y experiencias personalizadas.
+        </p>
+      </div>
+
+      {/* PLATAFORMA */}
+      <div className="col-md-3 offset-lg-1">
+        <h6 className="fw-bold mb-4">Plataforma</h6>
+        <ul className="list-unstyled">
+          <li className="mb-2">
+            <a href="/habitaciones" className="footer-link">Habitaciones</a>
+          </li>
+          <li className="mb-2">
+            <a href="#" className="footer-link">Servicios VIP</a>
+          </li>
+          <li className="mb-2">
+            <a href="#" className="footer-link">Membresías</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* COMPAÑÍA */}
+      <div className="col-md-2">
+        <h6 className="fw-bold mb-4">Compañía</h6>
+        <ul className="list-unstyled">
+          <li className="mb-2">
+            <a href="#" className="footer-link">Sobre nosotros</a>
+          </li>
+          <li className="mb-2">
+            <a href="#" className="footer-link">Contacto</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* SOCIAL */}
+      <div className="col-md-2">
+        <h6 className="fw-bold mb-4">Social</h6>
+        <div className="d-flex gap-3">
+          <a href="#" className="footer-icon">
+            <span className="material-icons">camera_alt</span>
+          </a>
+          <a href="#" className="footer-icon">
+            <span className="material-icons">facebook</span>
+          </a>
+          <a href="#" className="footer-icon">
+            <span className="material-icons">language</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    {/* COPYRIGHT */}
+    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
+      <p className="text-muted small mb-3 mb-md-0">
+        © 2024 StayHub S.A. Todos los derechos reservados.
+      </p>
+
+      <div className="d-flex gap-4">
+        <a href="#" className="footer-link small">Términos</a>
+        <a href="#" className="footer-link small">Privacidad</a>
+      </div>
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
