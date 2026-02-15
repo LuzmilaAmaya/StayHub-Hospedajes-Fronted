@@ -1,0 +1,147 @@
+:root {
+  --primary: #b5290d;
+  --accent-gray: #8B7F7F;
+  --background-light: #fcf9f8;
+  --background-dark: #221310;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+
+.about-hero {
+  height: 70vh;
+  min-height: 400px;
+  background-image: url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6));
+}
+
+.about-hero-overlay {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.about-tag {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* MISIÓN */
+
+.about-mission {
+  padding: 80px 20px;
+  background-color: var(--background-light);
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section-tag {
+  color: var(--primary);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.mission-text h2 {
+  font-size: 2.5rem;
+  margin: 20px 0;
+}
+
+.mission-cards {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.cardab {
+  background: #8B7F7F;
+  padding: 25px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  border: 1px solid black;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* TEAM */
+
+.about-team {
+  padding: 80px 20px;
+  background: white;
+  text-align: center;
+}
+
+.team-grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+}
+
+.team-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  filter: grayscale(100%);
+  transition: 0.4s ease;
+}
+
+.team-card img:hover {
+  filter: grayscale(0%);
+}
+
+.team-card span {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* BOTÓN VOLVER */
+
+.back-home-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 25px;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.back-home-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}

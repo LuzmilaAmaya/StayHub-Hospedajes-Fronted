@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/login";
 import Register from "../pages/Register";
+import AboutPage from "../pages/AboutPage";
 
 // Usuario
 import ReservationsPage from "../pages/MyReservationsPage";
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
+        <Route path="/about" element={<AboutPage />} />
 
         {/* Usuario */}
         <Route path="/reservas" element={<ReservationsPage />} />
