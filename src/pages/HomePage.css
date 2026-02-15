@@ -29,7 +29,7 @@ body {
 /* HERO */
 .hero-section {
   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-  url('https://cdn.discordapp.com/attachments/1464358594529988659/1464387549194747947/ChatGPT_Image_23_ene_2026_07_31_51_p.m..png?ex=69904f6e&is=698efdee&hm=9c7b96e85b59183983e6fffc1fea133f708a56de9132df130e900f1064b0dd47&');
+  url('../assets/recepcion.png');
   background-size: cover;
   background-position: center;
   min-height: 85vh;
@@ -95,6 +95,40 @@ body {
   padding: 20px;
   border-radius: 1rem;
   box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
+
+/* FOOTER */
+
+.footer-custom {
+  background-color: #8B7F7F;
+  color: white;
+}
+
+.footer-custom .footer-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-custom .footer-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.footer-custom .footer-link:hover {
+  color: white;
+}
+
+.footer-custom .footer-icon {
+  color: white;
+  transition: 0.3s ease;
+}
+
+.footer-custom .footer-icon:hover {
+  transform: translateY(-3px);
+}
+
+.footer-custom .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .footer-text {
