@@ -16,6 +16,7 @@ useEffect(() => {
     })
     .finally(() => setLoading(false));
 }, []);
+console.log("ROOMS STATE:", rooms);
 
 
   return (
