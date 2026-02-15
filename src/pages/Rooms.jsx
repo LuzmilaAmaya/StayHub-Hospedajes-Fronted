@@ -4,20 +4,19 @@ import { getRooms } from "../services/room.service";
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
+useEffect(() => {
+  getRooms()
+    .then((res) => {
+      console.log("RESPUESTA COMPLETA:", res);
+      console.log("DATA:", res.data);
+      setRooms(res.data);
+    })
+    .catch((err) => {
+      console.log("ERROR:", err);
+    })
+    .finally(() => setLoading(false));
+}, []);
 
-  useEffect(() => {
-    getRooms()
-      .then((res) => setRooms(res.data))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-center mt-5">
-        <div className="spinner-border" style={{ color: "#B4280D" }} />
-      </div>
-    );
-  }
 
   return (
     <div style={{ backgroundColor: "#E9EBEA", minHeight: "100vh" }}>
