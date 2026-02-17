@@ -49,21 +49,23 @@ export default function AdminReservationsPage() {
   }, [statusFilter, searchTerm, reservations]);
 
   const getReservationStatus = (reservation) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  if (reservation.status === "pending") return "pending";
+  if (reservation.status === "cancelled") return "cancelled";
 
-    const checkIn = new Date(reservation.checkIn);
-    const checkOut = new Date(reservation.checkOut);
-    checkIn.setHours(0, 0, 0, 0);
-    checkOut.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-    if (reservation.status === "cancelled") return "cancelled";
-    if (today < checkIn) return "future";
-    if (today >= checkIn && today <= checkOut) return "in-progress";
-    if (today > checkOut) return "completed";
+  const checkIn = new Date(reservation.checkIn);
+  const checkOut = new Date(reservation.checkOut);
+  checkIn.setHours(0, 0, 0, 0);
+  checkOut.setHours(0, 0, 0, 0);
 
-    return "future";
-  };
+  if (today < checkIn) return "future";
+  if (today >= checkIn && today <= checkOut) return "in-progress";
+  if (today > checkOut) return "completed";
+
+  return "future";
+};
 
   const getStatusConfig = (status) => {
     const configs = {
@@ -87,6 +89,11 @@ export default function AdminReservationsPage() {
         variant: "danger",
         icon: "bi-x-circle-fill",
       },
+      pending: {
+  label: "Pendiente de pago",
+  variant: "warning",
+  icon: "bi-hourglass-split",
+},
     };
     return configs[status] || configs.future;
   };
@@ -228,7 +235,7 @@ export default function AdminReservationsPage() {
 
             <div className="col-12 col-md-6">
               <div className="d-flex gap-2 flex-wrap">
-                {["all", "in-progress", "future", "completed", "cancelled"].map(
+                {["all", "pending", "in-progress", "future", "completed", "cancelled"].map(
                   (status) => (
                     <button
                       key={status}
