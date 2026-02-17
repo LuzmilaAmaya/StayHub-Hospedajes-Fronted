@@ -38,13 +38,9 @@ export default function HomePage() {
             Habitaciones
           </Link>
         </li>
+      
         <li className="nav-item">
-          <Link className="nav-link fw-semibold px-3" to="#">
-            Destinos
-          </Link>
-        </li>
-        <li className="nav-item">
-  <Link className="nav-link fw-semibold px-3" to="#">
+  <Link className="nav-link fw-semibold px-3" to="*">
     Servicios
   </Link>
 </li>
@@ -233,7 +229,7 @@ export default function HomePage() {
             ¿Listo para tu próxima aventura?
           </h2>
           <button className="btn btn-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm">
-            Comenzar Reserva
+            Comenzar Reserva 
           </button>
         </div>
       </section>
@@ -266,11 +262,9 @@ export default function HomePage() {
             <Link to="/habitaciones" className="footer-link">Habitaciones</Link>
           </li>
           <li className="mb-2">
-            <Link to="/" className="footer-link">Servicios VIP </Link>
+            <Link to="/*" className="footer-link">Servicios VIP </Link>
           </li>
-          <li className="mb-2">
-            <Link to="/" className="footer-link">Membresias</Link>
-          </li>
+          
         </ul>
       </div>
 
@@ -279,10 +273,10 @@ export default function HomePage() {
         <h6 className="fw-bold mb-4">Compañía</h6>
         <ul className="list-unstyled">
           <li className="mb-2">
-            <Link to="/" className="footer-link">Sobre nosotros</Link>
+            <Link to="/about" className="footer-link">Sobre nosotros</Link>
           </li>
           <li className="mb-2">
-            <Link to="/" className="footer-link">Contacto</Link>
+            <Link to="/contacto" className="footer-link">Contacto</Link>
           </li>
         </ul>
       </div>
@@ -324,18 +318,18 @@ export default function HomePage() {
 
 const rooms = [
   {
-    title: "Zen Suite",
-    price: "$240",
-    img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+    title: "Oro Centro Suites",
+    price: "$100.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/623950827.jpg?k=060bc9b367f2470c9b2f8c935c4e3ad9a7b2c9b0d6adb98c22e379cbb4ae8441&o="
   },
   {
-    title: "Oceanic Loft",
-    price: "$310",
-    img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+    title: "Garden Point Luxury Apartments",
+    price: "$120.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/207698391.jpg?k=07f0a7b3dbf652732201f9d8ceb6eb189d577fc92590ca602b3d0bbd8b18b260&o="
   },
   {
-    title: "Urban Oasis",
-    price: "$195",
-    img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+    title: "Sheraton Tucumán Hotel",
+    price: "$150.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/629802758.jpg?k=366ab5fdd3cdd8cd5b71462520727e65aab986384fb93d0cc9277a449857eb7d&o="
   }
 ];
