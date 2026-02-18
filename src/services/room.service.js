@@ -1,5 +1,5 @@
-import api from "../api/axios";
+import axios from "axios";
 
-export const getRooms = () => api.get("/rooms");
-export const getRoomById = (id) => api.get(`/rooms/${id}`);
-export const createRoom = (data) => api.post("/rooms", data);
+export const getRooms = () => {
+  return axios.get("/api/rooms");
+};

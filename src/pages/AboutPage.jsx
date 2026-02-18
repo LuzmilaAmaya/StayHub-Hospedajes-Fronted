@@ -25,7 +25,7 @@ export default function About() {
 
       
 
-     {/* MISIÓN */}
+     {/* MISION */}
 <section className="py-5 bg-light">
   <div className="container">
     <div className="row align-items-center mb-5">
