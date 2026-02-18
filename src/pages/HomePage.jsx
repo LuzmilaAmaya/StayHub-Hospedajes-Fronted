@@ -8,60 +8,7 @@ export default function HomePage() {
   return (
     <div>
 
-     {/* ================= NAVBAR ================= */}
-<nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
-  <div className="container">
-    <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
-      
-      <img
-        src={logo}
-        alt="StayHub Logo"
-        className="navbar-logo me-2"
-      />
-
-      <span className="text-dark">STAYHUB</span>
-    </Link>
-
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span className="navbar-toggler-icon"></span>
-    </button>
-
-    <div className="collapse navbar-collapse" id="navbarNav">
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <Link className="nav-link fw-semibold px-3" to="/habitaciones">
-            Habitaciones
-          </Link>
-        </li>
-      
-        <li className="nav-item">
-  <Link className="nav-link fw-semibold px-3" to="*">
-    Servicios
-  </Link>
-</li>
-        <li className="nav-item">
-          <Link className="nav-link fw-semibold px-3" to="/reservas">
-            Mi reserva
-          </Link>
-        </li>
-      </ul>
-
-      <div className="d-flex gap-2 align-items-center">
-        <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
-          Iniciar Sesión
-        </Link>
-        <Link className="btn btn-primary-custom rounded-pill px-4 fw-bold" to="/registro">
-          Crear Cuenta
-        </Link>
-      </div>
-    </div>
-  </div>
-</nav>
+    
 
 
       {/* ================= HERO ================= */}
