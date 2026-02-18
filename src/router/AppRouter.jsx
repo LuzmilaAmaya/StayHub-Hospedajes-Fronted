@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+<<<<<<< HEAD
 // Layout
 import Layout from "../components/Layout";
 
+=======
+>>>>>>> bf82bc5d14b0f2b62e17a3c01f0fb329b252332a
 // Públicas
 import HomePage from "../pages/HomePage";
 import Login from "../pages/login";
