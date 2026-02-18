@@ -27,11 +27,9 @@ export default function Footer() {
             <a href="/habitaciones" className="footer-link">Habitaciones</a>
           </li>
           <li className="mb-2">
-            <a href="#" className="footer-link">Servicios VIP</a>
+            <a href="/*" className="footer-link">Servicios VIP</a>
           </li>
-          <li className="mb-2">
-            <a href="#" className="footer-link">Membresías</a>
-          </li>
+          
         </ul>
       </div>
 
