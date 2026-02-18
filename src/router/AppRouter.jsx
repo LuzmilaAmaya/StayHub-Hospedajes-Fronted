@@ -1,11 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-<<<<<<< HEAD
 // Layout
 import Layout from "../components/Layout";
-
-=======
->>>>>>> bf82bc5d14b0f2b62e17a3c01f0fb329b252332a
 // Públicas
 import HomePage from "../pages/HomePage";
 import Login from "../pages/login";
@@ -13,11 +8,9 @@ import Register from "../pages/Register";
 import AboutPage from "../pages/AboutPage";
 import Rooms from "../pages/Rooms";
 import NotFoundPage from "../pages/NotFound404";
-
 // Usuario
 import ReservationsPage from "../pages/MyReservationsPage";
 import Profile from "../pages/Profile";
-
 // Admin
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
 import AdminRoomPage from "../pages/Admin/AdminRoomsPage";
