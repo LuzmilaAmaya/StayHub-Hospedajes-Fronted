@@ -26,7 +26,6 @@ const RoomDetails = () => {
   return (
     <div style={{ backgroundColor: "#E9EBEA", minHeight: "100vh" }}>
       <div className="container py-5">
-
         <h1 className="fw-bold mb-4" style={{ color: "#B4280D" }}>
           {room.name}
         </h1>
@@ -46,7 +45,11 @@ const RoomDetails = () => {
                     src={img}
                     alt={`img-${index}`}
                     className="img-fluid rounded"
-                    style={{ height: "150px", objectFit: "cover", width: "100%" }}
+                    style={{
+                      height: "150px",
+                      objectFit: "cover",
+                      width: "100%",
+                    }}
                   />
                 </div>
               ))}
@@ -54,30 +57,34 @@ const RoomDetails = () => {
 
             <div className="card border-0 shadow-sm p-4 mt-4">
               <h4>Detalles</h4>
-              <p><strong>Tipo:</strong> {room.type}</p>
-              <p><strong>Capacidad:</strong> {room.capacity} huéspedes</p>
+              <p>
+                <strong>Tipo:</strong> {room.type}
+              </p>
+              <p>
+                <strong>Capacidad:</strong> {room.capacity} huéspedes
+              </p>
               <p>{room.description}</p>
             </div>
-
           </div>
 
           <div className="col-lg-4">
-            <div className="card border-0 shadow-sm p-4 sticky-top" style={{ top: "100px" }}>
-              
+            <div
+              className="card border-0 shadow-sm p-4"
+              style={{  color: "#B4280D" }}
+            >
               <h3 className="fw-bold" style={{ color: "#B4280D" }}>
                 ${room.pricePerNight}
                 <span style={{ fontSize: "14px", color: "#B19E8D" }}>
-                  {" "} / noche
+                  {" "}
+                  / noche
                 </span>
               </h3>
 
               <hr />
 
-              <ReservationForm roomId={room._id} />
-
+              <ReservationForm roomId={room._id} pricePerNight={room.price} />
             </div>
           </div>
-
         </div>
       </div>
     </div>
