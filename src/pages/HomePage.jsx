@@ -1,59 +1,15 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+import logo from "../assets/logonegro.png";
+import experienciaImg from "../assets/experiencia.png";
+
 
 export default function HomePage() {
   return (
     <div>
 
-      {/* ================= NAVBAR ================= */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
-        <div className="container">
-          <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
-            <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
-              <span className="material-icons text-white">hotel</span>
-            </div>
-            <span className="text-dark">STAYHUB</span>
-          </Link>
+    
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="/rooms">
-                  Habitaciones
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="#">
-                  Destinos
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link fw-semibold px-3" to="#">
-                  Servicios
-                </Link>
-              </li>
-            </ul>
-
-            <div className="d-flex gap-2 align-items-center">
-              <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
-                Iniciar Sesión
-              </Link>
-              <Link className="btn btn-primary-custom rounded-pill px-4 fw-bold" to="/register">
-                Crear Cuenta
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* ================= HERO ================= */}
       <header className="hero-section text-center py-5">
@@ -129,37 +85,89 @@ export default function HomePage() {
       </section>
 
       {/* ================= EXPERIENCIA ================= */}
-      <section className="py-5">
-        <div className="container py-5">
-          <div className="row align-items-center g-5">
-            <div className="col-lg-6">
-              <h6 className="text-primary-custom fw-bold text-uppercase mb-3">
-                Experiencia StayHub
-              </h6>
-              <h2 className="display-4 fw-bold mb-4">
-                Mucho más que una estancia de lujo.
-              </h2>
-              <p className="text-muted mb-5">
-                Nos enfocamos en los detalles que transforman un viaje en un recuerdo imborrable.
-              </p>
+<section className="py-5 d-flex start-0">
+  <div
+    className="container-fluid px-0 position-relative"
+    style={{
+      minHeight: "600px",
+      background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${experienciaImg})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      display: "flex",
+      alignItems: "center",
+      borderRadius: "2rem",
+      overflow: "hidden",
+      margin: "0 1rem"
+    }}
+  >
+    <div className="container py-5">
+      <div className="row">
+        <div className="col-lg-7 text-white">
+          
+          <h6 className="text-primary-custom fw-bold text-uppercase mb-3 bg-white d-inline-block px-3 py-1 rounded-pill" style={{ fontSize: "0.8rem" }}>
+            Experiencia StayHub
+          </h6>
+
+          <h2 className="display-4 fw-bold mb-4 text-white">
+            Mucho más que una estancia de lujo.
+          </h2>
+
+          <p className="lead mb-5 opacity-90" style={{ maxWidth: "600px" }}>
+            Nos enfocamos en los detalles que transforman un viaje en un recuerdo imborrable.
+            Nuestra curaduría asegura espacios con carácter, alma y el máximo confort.
+          </p>
+
+          <div className="row g-3">
+            
+            <div className="col-sm-5">
+              <div
+                className="p-4 rounded-4 shadow-sm border-0"
+                style={{
+                  background: "rgba(255, 255, 255, 0.9)",
+                  backdropFilter: "blur(10px)"
+                }}
+              >
+                <span className="material-icons text-primary-custom mb-2">
+                  check_circle
+                </span>
+                <h5 className="fw-bold text-dark mb-1">Exclusividad</h5>
+                <p className="small text-muted mb-0">
+                  Acceso a locaciones privadas y únicas.
+                </p>
+              </div>
             </div>
 
-            <div className="col-lg-6 position-relative">
-              <div className="rounded-4 overflow-hidden shadow-lg">
-                <img
-                  className="img-fluid"
-                  src="https://img3.wallspic.com/crops/3/3/1/6/6/166133/166133-playa-las_playas_de_hawai-agua-los_recursos_de_agua-paisaje_natural-3840x2160.jpg"
-                  alt="Experiencia"
-                />
-              </div>
-              <div className="experience-badge">
-                <h3 className="fw-bold mb-0">15k+</h3>
-                <p className="small mb-0">Viajeros Felices</p>
+            <div className="col-sm-5">
+              <div
+                className="p-4 rounded-4 shadow-sm border-0"
+                style={{
+                  background: "rgba(255, 255, 255, 0.9)",
+                  backdropFilter: "blur(10px)"
+                }}
+              >
+                <span className="material-icons text-primary-custom mb-2">
+                  auto_awesome
+                </span>
+                <h5 className="fw-bold text-dark mb-1">Confort</h5>
+                <p className="small text-muted mb-0">
+                  Estándares de calidad de 5 estrellas.
+                </p>
               </div>
             </div>
+
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+    {/* Caja flotante */}
+    <div className="bg-primary-custom text-white p-4 rounded-4 d-inline-block position-absolute bottom-0 end-0 m-5 shadow-lg">
+      <h3 className="fw-bold mb-0">15k+</h3>
+      <p className="small mb-0">Viajeros Felices</p>
+    </div>
+
+  </div>
+</section>
 
       {/* ================= CTA FINAL ================= */}
       <section className="py-5 text-center border-top border-bottom">
@@ -168,37 +176,107 @@ export default function HomePage() {
             ¿Listo para tu próxima aventura?
           </h2>
           <button className="btn btn-primary-custom btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm">
-            Comenzar Reserva
+            Comenzar Reserva 
           </button>
         </div>
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="py-5 border-top bg-white">
-        <div className="container">
-          <p className="text-muted text-center mb-0">
-            © 2024 StayHub S.A. Todos los derechos reservados.
-          </p>
+      <footer className="py-5 border-top footer-custom">
+  <div className="container py-5">
+    <div className="row g-5">
+
+      {/* LOGO + DESCRIPCIÓN */}
+      <div className="col-lg-4">
+        <div className="d-flex align-items-center fw-bold mb-4">
+          <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
+            <span className="material-icons text-white">hotel</span>
+          </div>
+          <span className="text-dark">STAYHUB</span>
         </div>
-      </footer>
+
+        <p className="footer-text">
+          Elevando el estándar de la hospitalidad moderna a través de diseños 
+          excepcionales y experiencias personalizadas.
+        </p>
+      </div>
+
+      {/* PLATAFORMA */}
+      <div className="col-md-3 offset-lg-1">
+        <h6 className="fw-bold mb-4">Plataforma</h6>
+        <ul className="list-unstyled">
+          <li className="mb-2">
+            <Link to="/habitaciones" className="footer-link">Habitaciones</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/*" className="footer-link">Servicios VIP </Link>
+          </li>
+          
+        </ul>
+      </div>
+
+      {/* COMPAÑÍA */}
+      <div className="col-md-2">
+        <h6 className="fw-bold mb-4">Compañía</h6>
+        <ul className="list-unstyled">
+          <li className="mb-2">
+            <Link to="/about" className="footer-link">Sobre nosotros</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/contacto" className="footer-link">Contacto</Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* SOCIAL */}
+      <div className="col-md-2">
+        <h6 className="fw-bold mb-4">Social</h6>
+        <div className="d-flex gap-3">
+          <Link to="#" className="footer-icon">
+            <span className="material-icons">camera_alt</span>
+          </Link>
+          <Link to="#" className="footer-icon">
+            <span className="material-icons">facebook</span>
+          </Link>
+          <Link to="#" className="footer-icon">
+            <span className="material-icons">language</span>
+          </Link>
+        </div>
+      </div>
+
+    </div>
+
+    {/* COPYRIGHT */}
+    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
+      <p className="text-muted small mb-3 mb-md-0">
+        © 2024 StayHub S.A. Todos los derechos reservados.
+      </p>
+
+      <div className="d-flex gap-4">
+        <Link to="#" className="footer-link small">Términos</Link>
+        <Link  to="#" className="footer-link small">Privacidad</Link>
+      </div>
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
 
 const rooms = [
   {
-    title: "Zen Suite",
-    price: "$240",
-    img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+    title: "Oro Centro Suites",
+    price: "$100.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/623950827.jpg?k=060bc9b367f2470c9b2f8c935c4e3ad9a7b2c9b0d6adb98c22e379cbb4ae8441&o="
   },
   {
-    title: "Oceanic Loft",
-    price: "$310",
-    img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+    title: "Garden Point Luxury Apartments",
+    price: "$120.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/207698391.jpg?k=07f0a7b3dbf652732201f9d8ceb6eb189d577fc92590ca602b3d0bbd8b18b260&o="
   },
   {
-    title: "Urban Oasis",
-    price: "$195",
-    img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+    title: "Sheraton Tucumán Hotel",
+    price: "$150.000",
+    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/629802758.jpg?k=366ab5fdd3cdd8cd5b71462520727e65aab986384fb93d0cc9277a449857eb7d&o="
   }
 ];

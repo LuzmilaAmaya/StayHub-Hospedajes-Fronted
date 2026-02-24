@@ -14,9 +14,13 @@ export default function Login() {
       const res = await login({ email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/perfil");
+
+      // Notifica al Navbar que el usuario cambió
+      window.dispatchEvent(new Event("authChange"));
+
+      navigate("/");
     } catch (err) {
-      setError(err);
+      setError(err?.response?.data?.message || "Credenciales incorrectas");
     }
   };
 
