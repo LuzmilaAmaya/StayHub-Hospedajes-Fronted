@@ -21,35 +21,6 @@ export default function HomePage() {
             Reserva tu habitación perfecta con nosotros y vive una experiencia
             inolvidable.
           </p>
-
-          <div className="search-box shadow-lg">
-            <div className="d-flex align-items-center flex-wrap gap-3">
-              <div className="d-flex align-items-center border-end pe-3">
-                <span className="material-icons text-primary-custom me-2">
-                  location_on
-                </span>
-                <input
-                  className="border-0 shadow-none"
-                  placeholder="¿A dónde vas?"
-                />
-              </div>
-
-              <div className="d-flex align-items-center border-end pe-3">
-                <span className="material-icons text-primary-custom me-2">
-                  calendar_today
-                </span>
-                <input
-                  className="border-0 shadow-none"
-                  placeholder="Fechas de estancia"
-                />
-              </div>
-
-              <button className="btn btn-primary-custom rounded-pill px-4 d-flex align-items-center">
-                <span className="material-icons me-2">search</span>
-                Buscar
-              </button>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -193,94 +164,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      {/* ================= FOOTER ================= */}
-      <footer className="py-5 border-top footer-custom">
-        <div className="container py-5">
-          <div className="row g-5">
-            {/* LOGO + DESCRIPCIÓN */}
-            <div className="col-lg-4">
-              <div className="d-flex align-items-center fw-bold mb-4">
-                <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
-                  <span className="material-icons text-white">hotel</span>
-                </div>
-                <span className="text-dark">STAYHUB</span>
-              </div>
-
-              <p className="footer-text">
-                Elevando el estándar de la hospitalidad moderna a través de
-                diseños excepcionales y experiencias personalizadas.
-              </p>
-            </div>
-
-            {/* PLATAFORMA */}
-            <div className="col-md-3 offset-lg-1">
-              <h6 className="fw-bold mb-4">Plataforma</h6>
-              <ul className="list-unstyled">
-                <li className="mb-2">
-                  <Link to="/habitaciones" className="footer-link">
-                    Habitaciones
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/*" className="footer-link">
-                    Servicios VIP{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* COMPAÑÍA */}
-            <div className="col-md-2">
-              <h6 className="fw-bold mb-4">Compañía</h6>
-              <ul className="list-unstyled">
-                <li className="mb-2">
-                  <Link to="/about" className="footer-link">
-                    Sobre nosotros
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/contacto" className="footer-link">
-                    Contacto
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* SOCIAL */}
-            <div className="col-md-2">
-              <h6 className="fw-bold mb-4">Social</h6>
-              <div className="d-flex gap-3">
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">camera_alt</span>
-                </Link>
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">facebook</span>
-                </Link>
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">language</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* COPYRIGHT */}
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
-            <p className="text-muted small mb-3 mb-md-0">
-              © 2024 StayHub S.A. Todos los derechos reservados.
-            </p>
-
-            <div className="d-flex gap-4">
-              <Link to="#" className="footer-link small">
-                Términos
-              </Link>
-              <Link to="#" className="footer-link small">
-                Privacidad
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="py-5 border-top bg-white">
       <div className="container py-5">
         <div className="row g-5">
-          {/* LOGO + DESCRIPCION */}
+          {/* LOGO + DESCRIPCIÓN */}
           <div className="col-lg-4">
             <div className="d-flex align-items-center fw-bold mb-4">
               <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
@@ -40,7 +40,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* COMPAÑIA */}
+          {/* COMPAÑÍA */}
           <div className="col-md-2">
             <h6 className="fw-bold mb-4">Compañía</h6>
             <ul className="list-unstyled">
@@ -76,18 +76,10 @@ export default function Footer() {
 
         {/* COPYRIGHT */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
-          <p className="text-muted small mb-3 mb-md-0">
-            © 2024 StayHub S.A. Todos los derechos reservados.
+          <p className="text-muted small mb-0">
+            © {new Date().getFullYear()} StayHub S.A. Todos los derechos
+            reservados.
           </p>
-
-          <div className="d-flex gap-4">
-            <a href="#" className="footer-link small">
-              Términos
-            </a>
-            <a href="#" className="footer-link small">
-              Privacidad
-            </a>
-          </div>
         </div>
       </div>
     </footer>
