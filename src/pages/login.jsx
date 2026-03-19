@@ -14,8 +14,6 @@ export default function Login() {
       const res = await login({ email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-
-      // Notifica al Navbar que el usuario cambió
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");

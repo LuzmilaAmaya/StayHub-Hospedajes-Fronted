@@ -197,8 +197,6 @@ export default function ReservationForm({ roomId, pricePerNight }) {
           {errors.checkOut && <span style={s.errMsg}>{errors.checkOut}</span>}
         </div>
       </div>
-
-      {/* Resumen de precio */}
       {nights > 0 && pricePerNight && (
         <div style={s.summary}>
           <div style={s.summaryRow}>

@@ -162,7 +162,6 @@ export default function AdminReservationsPage() {
 
   return (
     <div className="container py-4">
-      {/* Header */}
       <div className="mb-4">
         <h1 className="display-5 fw-bold mb-2">
           <i className="bi bi-shield-check me-2 text-primary"></i>
@@ -171,7 +170,6 @@ export default function AdminReservationsPage() {
         <p className="text-muted">Gestiona todas las reservas del sistema</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="row g-3 mb-4">
         <div className="col-6 col-md-3">
           <div className="card border-0 shadow-sm h-100">
@@ -213,8 +211,6 @@ export default function AdminReservationsPage() {
           </div>
         </div>
       </div>
-
-      {/* Filters */}
       <div className="card border-0 shadow-sm mb-4">
         <div className="card-body">
           <div className="row g-3">
@@ -257,8 +253,6 @@ export default function AdminReservationsPage() {
           </div>
         </div>
       </div>
-
-      {/* Reservations List */}
       {filteredReservations.length === 0 ? (
         <div className="card border-0 shadow-sm">
           <div className="card-body text-center py-5">

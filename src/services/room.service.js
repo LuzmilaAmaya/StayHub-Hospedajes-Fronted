@@ -1,11 +1,21 @@
-import api from "../api/axios";
+import api from "../api/axios.js";
 
-// Obtener todas las habitaciones
 export const getRooms = () => {
   return api.get("/rooms");
 };
 
-// Obtener una habitacion por ID
 export const getRoomById = (id) => {
   return api.get(`/rooms/${id}`);
+};
+
+export const createRoom = (roomData) => {
+  return api.post("/rooms", roomData);
+};
+
+export const updateRoom = (id, roomData) => {
+  return api.put(`/rooms/${id}`, roomData);
+};
+
+export const deleteRoom = (id) => {
+  return api.delete(`/rooms/${id}`);
 };

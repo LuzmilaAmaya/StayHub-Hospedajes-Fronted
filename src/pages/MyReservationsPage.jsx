@@ -83,16 +83,12 @@ export default function MyReservationsPage() {
     completed: reservations.filter((r) => getStatus(r) === "completed").length,
     cancelled: reservations.filter((r) => getStatus(r) === "cancelled").length,
   };
-
-  /* ── Loading ── */
   if (loading) return (
     <div style={s.center}>
       <div className="spinner-border" style={{ color: "#B4280D" }} />
       <p style={{ color: "#888", marginTop: "1rem" }}>Cargando tus reservas...</p>
     </div>
   );
-
-  /* ── Error ── */
   if (error) return (
     <div style={s.center}>
       <span className="material-icons" style={{ fontSize: "3rem", color: "#B4280D" }}>error_outline</span>
@@ -104,8 +100,6 @@ export default function MyReservationsPage() {
   return (
     <div style={s.page}>
       <div style={s.container}>
-
-        {/* Header */}
         <div style={s.header}>
           <div>
             <h1 style={s.title}>Mis Reservas</h1>
@@ -116,8 +110,6 @@ export default function MyReservationsPage() {
             Explorar habitaciones
           </button>
         </div>
-
-        {/* Stats */}
         <div style={s.statsRow}>
           {[
             { key: "all",       label: "Todas",      icon: "list" },
@@ -144,8 +136,6 @@ export default function MyReservationsPage() {
             </button>
           ))}
         </div>
-
-        {/* Empty state */}
         {filtered.length === 0 && (
           <div style={s.emptyBox}>
             <span className="material-icons" style={{ fontSize: "3.5rem", color: "#ddd" }}>hotel</span>
@@ -163,7 +153,6 @@ export default function MyReservationsPage() {
           </div>
         )}
 
-        {/* Cards */}
         <div style={s.cardsList}>
           {filtered.map((r) => {
             const st = getStatus(r);
@@ -173,8 +162,6 @@ export default function MyReservationsPage() {
 
             return (
               <div key={r._id} style={{ ...s.card, ...(st === "cancelled" ? s.cardDim : {}) }}>
-
-                {/* Imagen */}
                 <div style={s.cardImgWrap}>
                   {r.room?.images?.[0] ? (
                     <img src={r.room.images[0]} alt={r.room.name} style={s.cardImg} />
@@ -184,12 +171,9 @@ export default function MyReservationsPage() {
                     </div>
                   )}
                 </div>
-
-                {/* Contenido */}
                 <div style={s.cardBody}>
                   <div style={s.cardTopRow}>
                     <div>
-                      {/* Badge estado */}
                       <span style={{ ...s.badge, background: meta.bg, color: meta.color }}>
                         {meta.label}
                       </span>
@@ -227,8 +211,6 @@ export default function MyReservationsPage() {
                       {r.nights} {r.nights === 1 ? "noche" : "noches"}
                     </div>
                   </div>
-
-                  {/* Acciones */}
                   {st === "future" && (
                     <div style={s.actions}>
                       <button
@@ -290,8 +272,6 @@ const s = {
     borderRadius: "10px", padding: "0.7rem 1.5rem",
     fontWeight: 600, cursor: "pointer", fontSize: "0.9rem",
   },
-
-  /* Stats/filtros */
   statsRow: {
     display: "flex", gap: "0.6rem", marginBottom: "1.75rem",
     overflowX: "auto", paddingBottom: "0.25rem",
@@ -310,7 +290,6 @@ const s = {
   },
   statCountActive: { background: "#fff0ee", color: "#B4280D" },
 
-  /* Empty */
   emptyBox: {
     background: "#fff", borderRadius: "16px", padding: "3.5rem 2rem",
     textAlign: "center", boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
@@ -318,7 +297,6 @@ const s = {
   emptyTitle: { fontWeight: 700, fontSize: "1.1rem", color: "#1a1a1a", margin: "1rem 0 0.4rem" },
   emptySub: { color: "#aaa", fontSize: "0.9rem", marginBottom: "1.25rem" },
 
-  /* Cards */
   cardsList: { display: "flex", flexDirection: "column", gap: "1rem" },
   card: {
     background: "#fff", borderRadius: "16px",

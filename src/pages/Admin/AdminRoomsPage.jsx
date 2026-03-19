@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { getRooms, createRoom, updateRoom, deleteRoom } from "../../services/room.service.js";
+import { useEffect, useState } from "react";
 
 const initialForm = {
-  id: null,
+  _id: null,
   name: "",
   type: "",
   price: "",
@@ -10,15 +11,34 @@ const initialForm = {
   preview: "",
 };
 
-export default function AdminRoomPage() {
+export default function AdminRoomsPage() {
   const [rooms, setRooms] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [isEditing, setIsEditing] = useState(false);
+   useEffect(() => {
+  const savedRooms = localStorage.getItem("rooms");
 
+  if (savedRooms) {
+    setRooms(JSON.parse(savedRooms));
+  } else {
+    const fetchRooms = async () => {
+      try {
+        const response = await getRooms();
+        setRooms(response.data);
+        localStorage.setItem("rooms", JSON.stringify(response.data));
+      } catch (error) {
+        console.error("Error al cargar habitaciones:", error);
+      }
+    };
+
+    fetchRooms();
+  }
+}, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "price" && value < 0) return;
+    if (name === "price" && value.length > 7) return;
     if (name === "capacity" && value > 10) return;
 
     setForm({ ...form, [name]: value });
@@ -35,33 +55,52 @@ export default function AdminRoomPage() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  try {
     if (isEditing) {
-      setRooms(rooms.map((room) => (room.id === form.id ? form : room)));
+      const response = await updateRoom(form._id, form);
+
+     const updatedRooms = rooms.map((room) =>
+  room._id === form._id ? response.data : room
+);
+
+setRooms(updatedRooms);
+localStorage.setItem("rooms", JSON.stringify(updatedRooms));
       setIsEditing(false);
     } else {
-      setRooms([...rooms, { ...form, id: Date.now() }]);
+      const response = await createRoom(form);
+
+const newRooms = [...rooms, response.data];
+setRooms(newRooms);
+localStorage.setItem("rooms", JSON.stringify(newRooms));
     }
 
     setForm(initialForm);
-  };
+  } catch (error) {
+    console.error("Error al guardar habitación:", error);
+  }
+};
 
   const handleEdit = (room) => {
     setForm(room);
     setIsEditing(true);
   };
 
-  const handleDelete = (id) => {
-    setRooms(rooms.filter((room) => room.id !== id));
-  };
-
+ const handleDelete = async (id) => {
+  try {
+    await deleteRoom(id);
+   const updatedRooms = rooms.filter((room) => room._id !== id);
+setRooms(updatedRooms);
+localStorage.setItem("rooms", JSON.stringify(updatedRooms));
+  } catch (error) {
+    console.error("Error al eliminar habitación:", error);
+  }
+};
   return (
     <div className="container py-5">
       <h2 className="text-center fw-bold mb-4">Panel de Administración</h2>
-
-      {/* CARD FORM */}
       <div className="card shadow-sm mb-5">
         <div className="card-body">
           <h5 className="mb-4">
@@ -156,8 +195,6 @@ export default function AdminRoomPage() {
           </form>
         </div>
       </div>
-
-      {/* panel admin */}
       <div className="card shadow-sm">
         <div className="card-body">
           <h5 className="mb-4">Habitaciones Registradas</h5>
@@ -184,7 +221,7 @@ export default function AdminRoomPage() {
                   </tr>
                 ) : (
                   rooms.map((room) => (
-                    <tr key={room.id}>
+                    <tr key={room._id}>
                       <td>
                         {room.preview && (
                           <img
@@ -212,7 +249,7 @@ export default function AdminRoomPage() {
                         </button>
                         <button
                           className="btn btn-outline-danger btn-sm"
-                          onClick={() => handleDelete(room.id)}
+                          onClick={() => handleDelete(room._id)}
                         >
                           Eliminar
                         </button>
@@ -227,4 +264,4 @@ export default function AdminRoomPage() {
       </div>
     </div>
   );
-}
+};

@@ -1,12 +1,27 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getRooms } from "../services/room.service.js";
 import "./HomePage.css";
 import logo from "../assets/logonegro.png";
 import experienciaImg from "../assets/experiencia.png";
 
 export default function HomePage() {
+  const [rooms, setRooms] = useState([]);
+    useEffect(() => {
+      const fetchRooms = async () => {
+        try {
+          const response = await getRooms();
+          setRooms(response.data);
+        } catch (error) {
+          console.error("Error cargando habitaciones:", error);
+        }
+      };
+  
+      fetchRooms();
+    }, []);
+  
   return (
     <div>
-      {/* ================= HERO ================= */}
       <header className="hero-section text-center py-5">
         <div className="container">
           <h6 className="hero-badge">Tu escape ideal comienza aquí</h6>
@@ -53,7 +68,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* ================= HABITACIONES ================= */}
       <section className="py-5">
         <div className="container py-5">
           <div className="d-flex justify-content-between align-items-end mb-5">
@@ -91,7 +105,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= EXPERIENCIA ================= */}
       <section className="py-5 d-flex start-0">
         <div
           className="container-fluid px-0 position-relative"
@@ -171,7 +184,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Caja flotante */}
           <div className="bg-primary-custom text-white p-4 rounded-4 d-inline-block position-absolute bottom-0 end-0 m-5 shadow-lg">
             <h3 className="fw-bold mb-0">15k+</h3>
             <p className="small mb-0">Viajeros Felices</p>
@@ -179,7 +191,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =================  FINAL ================= */}
       <section className="py-5 text-center border-top border-bottom">
         <div className="container py-5">
           <h2 className="display-5 fw-bold fst-italic mb-4">
@@ -193,12 +204,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      {/* ================= FOOTER ================= */}
       <footer className="py-5 border-top footer-custom">
         <div className="container py-5">
           <div className="row g-5">
-            {/* LOGO + DESCRIPCIÓN */}
             <div className="col-lg-4">
               <div className="d-flex align-items-center fw-bold mb-4">
                 <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
@@ -212,8 +220,6 @@ export default function HomePage() {
                 diseños excepcionales y experiencias personalizadas.
               </p>
             </div>
-
-            {/* PLATAFORMA */}
             <div className="col-md-3 offset-lg-1">
               <h6 className="fw-bold mb-4">Plataforma</h6>
               <ul className="list-unstyled">
@@ -229,8 +235,6 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-
-            {/* COMPAÑÍA */}
             <div className="col-md-2">
               <h6 className="fw-bold mb-4">Compañía</h6>
               <ul className="list-unstyled">
@@ -246,8 +250,6 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-
-            {/* SOCIAL */}
             <div className="col-md-2">
               <h6 className="fw-bold mb-4">Social</h6>
               <div className="d-flex gap-3">
@@ -263,8 +265,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* COPYRIGHT */}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
             <p className="text-muted small mb-3 mb-md-0">
               © 2024 StayHub S.A. Todos los derechos reservados.

@@ -26,7 +26,6 @@ body {
   transform: scale(1.05);
 }
 
-/* HERO */
 .hero-section {
   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
   url('../assets/recepcion.png');
@@ -52,7 +51,6 @@ body {
   max-width: 700px;
 }
 
-/* SEARCH BOX */
 .search-box {
   background: white;
   padding: 15px 25px;
@@ -60,7 +58,6 @@ body {
   display: inline-block;
 }
 
-/* CARD EFFECT */
 .photo-card {
   transition: 0.3s ease;
   border-radius: 1rem;
@@ -85,7 +82,6 @@ body {
   transform: scale(1.05);
 }
 
-/* EXPERIENCE BADGE */
 .experience-badge {
   position: absolute;
   bottom: 20px;
@@ -97,7 +93,6 @@ body {
   box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
 }
 
-/* FOOTER */
 
 .footer-custom {
   background-color: #8B7F7F;

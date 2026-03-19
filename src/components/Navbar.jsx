@@ -64,7 +64,6 @@ export default function Navbar() {
                 </Link>
               </li>
             )}
-            {/* Menú admin */}
             {user?.role === "admin" && (
               <li className="nav-item dropdown">
                 <a
