@@ -14,6 +14,10 @@ export default function Login() {
       const res = await login({ email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+feat/rooms
+
+
+       
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");

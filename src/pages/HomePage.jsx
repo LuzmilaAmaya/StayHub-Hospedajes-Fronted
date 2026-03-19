@@ -36,35 +36,6 @@ export default function HomePage() {
             Reserva tu habitación perfecta con nosotros y vive una experiencia
             inolvidable.
           </p>
-
-          <div className="search-box shadow-lg">
-            <div className="d-flex align-items-center flex-wrap gap-3">
-              <div className="d-flex align-items-center border-end pe-3">
-                <span className="material-icons text-primary-custom me-2">
-                  location_on
-                </span>
-                <input
-                  className="border-0 shadow-none"
-                  placeholder="¿A dónde vas?"
-                />
-              </div>
-
-              <div className="d-flex align-items-center border-end pe-3">
-                <span className="material-icons text-primary-custom me-2">
-                  calendar_today
-                </span>
-                <input
-                  className="border-0 shadow-none"
-                  placeholder="Fechas de estancia"
-                />
-              </div>
-
-              <button className="btn btn-primary-custom rounded-pill px-4 d-flex align-items-center">
-                <span className="material-icons me-2">search</span>
-                Buscar
-              </button>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -204,6 +175,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+ feat/rooms
       <footer className="py-5 border-top footer-custom">
         <div className="container py-5">
           <div className="row g-5">
@@ -281,6 +253,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+dev
     </div>
   );
 }

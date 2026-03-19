@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+feat/rooms
 import Layout from "../components/Layout";
+import Layout from "../components/Layout.jsx";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/login";
-import Register from "../pages/Register";
+import Register from "../pages/RegisterPage";
 import AboutPage from "../pages/AboutPage";
 import Rooms from "../pages/Rooms";
 import NotFoundPage from "../pages/NotFound404";
@@ -11,6 +13,7 @@ import Profile from "../pages/Profile";
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
 import AdminRoomsPage from "../pages/Admin/AdminRoomsPage";
 import UsersAdmin from "../pages/Admin/UsersAdmin";
+
 import RoomDetails from "../pages/RoomsDetails";
 
 export default function AppRouter() {
