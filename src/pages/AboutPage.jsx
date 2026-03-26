@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 export default function About() {
   return (
     <>
-      {/* HERO */}
       <section className="about-hero">
         <div className="about-hero-overlay">
           <span className="about-tag">Desde 2026</span>
@@ -15,8 +14,6 @@ export default function About() {
             Redefiniendo el lujo y la exclusividad en cada estancia.
             Creamos experiencias, no solo reservas.
           </p>
-
-          {/* BOTÓN VOLVER */}
           <Link to="/" className="back-home-btn">
             Volver al Inicio
           </Link>
@@ -25,12 +22,9 @@ export default function About() {
 
       
 
-     {/* MISIÓN */}
 <section className="py-5 bg-light">
   <div className="container">
     <div className="row align-items-center mb-5">
-
-      {/* TEXTO */}
       <div className="col-lg-6 mb-4 mb-lg-0">
         <h6 className="text-danger text-uppercase fw-bold mb-3">
           Propósito
@@ -51,8 +45,6 @@ export default function About() {
           <div style={{height:"4px", width:"40px"}} className="bg-secondary rounded"></div>
         </div>
       </div>
-
-      {/* CARDS */}
       <div className="col-lg-6">
         <div className="row g-4">
 
@@ -98,9 +90,6 @@ export default function About() {
     </div>
   </div>
 </section>
-
-
-      {/* TEAM */}
       <section className="about-team">
         <div className="container">
           <h2>Conoce a nuestro equipo</h2>
