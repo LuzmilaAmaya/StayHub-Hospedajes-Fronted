@@ -41,13 +41,32 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(adminUser));
       localStorage.setItem("token", "admin-token");
 
+
+
       window.dispatchEvent(new Event("authChange"));
+
 
       setAlert("Bienvenido Administrador ");
 
       setTimeout(() => {
         navigate("/admin/usuarios");
       }, 1500);
+
+
+      return;
+    }
+
+    if (userFound) {
+      localStorage.setItem("user", JSON.stringify(userFound));
+      localStorage.setItem("token", "user-token");
+
+      setAlert(`Bienvenido ${userFound.nombre} `);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+
+
 
       return;
     }
@@ -63,6 +82,7 @@ export default function Login() {
       setTimeout(() => {
         navigate("/");
       }, 1500);
+
 
     } else {
       setAlert("Correo o contraseña incorrectos ❌");
@@ -92,6 +112,7 @@ export default function Login() {
               src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
               className="d-block w-100 bg-img"
               alt="room"
+
             />
           </div>
 
@@ -102,6 +123,19 @@ export default function Login() {
               alt="suite"
             />
           </div>
+
+
+            />
+          </div>
+
+          <div className="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427"
+              className="d-block w-100 bg-img"
+              alt="suite"
+            />
+          </div>
+
 
         </div>
       </div>
