@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
 import AdminRoomsPage from "../pages/Admin/AdminRoomsPage";
 import UsersAdmin from "../pages/Admin/UsersAdmin";
+import ProtectedRoute from "../components/ProtectedRoute";
 import Reviews from "./pages/Reviews";
 import RoomDetails from "../pages/RoomsDetails";
 
@@ -27,9 +28,9 @@ export default function AppRouter() {
           <Route path="/habitaciones/:id" element={<RoomDetails />} />
           <Route path="/reservas" element={<ReservationsPage />} />
           <Route path="/perfil" element={<Profile />} />
-          <Route path="/admin/usuarios" element={<UsersAdmin />} />
-          <Route path="/admin/reservas" element={<AdminReservationsPage />} />
-          <Route path="/admin/habitaciones" element={<AdminRoomsPage />} />
+          <Route path="/admin/usuarios" element={<ProtectedRoute role="admin"> <UsersAdmin/> </ProtectedRoute>} />
+          <Route path="/admin/reservas" element={<ProtectedRoute role="admin"> <AdminReservationsPage/> </ProtectedRoute>} />
+          <Route path="/admin/habitaciones" element={<ProtectedRoute role="admin"> <AdminRoomsPage /> </ProtectedRoute>} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/reviews" element={<Reviews />} />
         </Route>

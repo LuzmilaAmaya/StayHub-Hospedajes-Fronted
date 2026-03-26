@@ -7,19 +7,19 @@ import experienciaImg from "../assets/experiencia.png";
 
 export default function HomePage() {
   const [rooms, setRooms] = useState([]);
-    useEffect(() => {
-      const fetchRooms = async () => {
-        try {
-          const response = await getRooms();
-          setRooms(response.data);
-        } catch (error) {
-          console.error("Error cargando habitaciones:", error);
-        }
-      };
-  
-      fetchRooms();
-    }, []);
-  
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await getRooms();
+        setRooms(response.data);
+      } catch (error) {
+        console.error("Error cargando habitaciones:", error);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
   return (
     <div>
       <header className="hero-section text-center py-5">
@@ -175,85 +175,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
- feat/rooms
-      <footer className="py-5 border-top footer-custom">
-        <div className="container py-5">
-          <div className="row g-5">
-            <div className="col-lg-4">
-              <div className="d-flex align-items-center fw-bold mb-4">
-                <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
-                  <span className="material-icons text-white">hotel</span>
-                </div>
-                <span className="text-dark">STAYHUB</span>
-              </div>
-
-              <p className="footer-text">
-                Elevando el estándar de la hospitalidad moderna a través de
-                diseños excepcionales y experiencias personalizadas.
-              </p>
-            </div>
-            <div className="col-md-3 offset-lg-1">
-              <h6 className="fw-bold mb-4">Plataforma</h6>
-              <ul className="list-unstyled">
-                <li className="mb-2">
-                  <Link to="/habitaciones" className="footer-link">
-                    Habitaciones
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/*" className="footer-link">
-                    Servicios VIP{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-2">
-              <h6 className="fw-bold mb-4">Compañía</h6>
-              <ul className="list-unstyled">
-                <li className="mb-2">
-                  <Link to="/about" className="footer-link">
-                    Sobre nosotros
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link to="/contacto" className="footer-link">
-                    Contacto
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-2">
-              <h6 className="fw-bold mb-4">Social</h6>
-              <div className="d-flex gap-3">
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">camera_alt</span>
-                </Link>
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">facebook</span>
-                </Link>
-                <Link to="#" className="footer-icon">
-                  <span className="material-icons">language</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4 border-top">
-            <p className="text-muted small mb-3 mb-md-0">
-              © 2024 StayHub S.A. Todos los derechos reservados.
-            </p>
-
-            <div className="d-flex gap-4">
-              <Link to="#" className="footer-link small">
-                Términos
-              </Link>
-              <Link to="#" className="footer-link small">
-                Privacidad
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
-dev
     </div>
   );
 }
