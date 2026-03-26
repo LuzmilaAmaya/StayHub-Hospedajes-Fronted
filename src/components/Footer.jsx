@@ -3,10 +3,6 @@ export default function Footer() {
     <footer className="py-5 border-top bg-white">
       <div className="container py-5">
         <div className="row g-5">
-feat/rooms
-
-         
-
           <div className="col-lg-4">
             <div className="d-flex align-items-center fw-bold mb-4">
               <div className="bg-primary-custom p-1 rounded me-2 d-flex align-items-center">
@@ -40,11 +36,7 @@ feat/rooms
               </li>
             </ul>
           </div>
- feat/rooms
 
-
-      
- dev
           <div className="col-md-2">
             <h6 className="fw-bold mb-4">Compañía</h6>
             <ul className="list-unstyled">
