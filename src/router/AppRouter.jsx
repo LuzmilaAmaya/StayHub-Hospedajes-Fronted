@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-feat/rooms
+feat / rooms;
 import Layout from "../components/Layout";
 import Layout from "../components/Layout.jsx";
 import HomePage from "../pages/HomePage";
@@ -13,7 +13,7 @@ import Profile from "../pages/Profile";
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
 import AdminRoomsPage from "../pages/Admin/AdminRoomsPage";
 import UsersAdmin from "../pages/Admin/UsersAdmin";
-
+import Reviews from "./pages/Reviews";
 import RoomDetails from "../pages/RoomsDetails";
 
 export default function AppRouter() {
@@ -33,6 +33,7 @@ export default function AppRouter() {
           <Route path="/admin/reservas" element={<AdminReservationsPage />} />
           <Route path="/admin/habitaciones" element={<AdminRoomsPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Route>
       </Routes>
     </BrowserRouter>
