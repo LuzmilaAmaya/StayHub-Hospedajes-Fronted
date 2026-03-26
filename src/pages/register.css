@@ -1,0 +1,145 @@
+.register-bg {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bgCarousel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.bg-img {
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+
+.register-card {
+  background: rgba(254, 254, 254, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #b4280d;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #b4280d;
+  box-shadow: 0 0 8px rgba(180, 40, 13, 0.4);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.password-group {
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+
+.eye:hover {
+  color: #000;
+}
+
+.strength-bar {
+  height: 6px;
+  background: #eee;
+  border-radius: 10px;
+  margin: 6px 0 12px;
+}
+
+.strength {
+  height: 100%;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.strength-1 {
+  width: 25%;
+  background: red;
+}
+.strength-2 {
+  width: 50%;
+  background: orange;
+}
+.strength-3 {
+  width: 75%;
+  background: gold;
+}
+.strength-4 {
+  width: 100%;
+  background: green;
+}
+
+.btn-register {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
+  background: #b4280d;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-register:hover {
+  transform: scale(1.05);
+  background: #8b7f7f;
+}
+
+.alert-pro {
+  background: #b4280d;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 12px;
+}
