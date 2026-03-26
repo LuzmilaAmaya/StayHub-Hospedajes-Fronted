@@ -73,7 +73,7 @@ const RoomDetails = () => {
               style={{  color: "#B4280D" }}
             >
               <h3 className="fw-bold" style={{ color: "#B4280D" }}>
-                ${room.pricePerNight}
+                ${room.pricePerNight || room.price }
                 <span style={{ fontSize: "14px", color: "#B19E8D" }}>
                   {" "}
                   / noche

@@ -11,6 +11,11 @@ export default function HomePage() {
     const fetchRooms = async () => {
       try {
         const response = await getRooms();
+        const visibleRooms = response.data.filter(
+          (room) => room.active !== false
+        );
+
+        setRooms(visibleRooms);
         setRooms(response.data);
       } catch (error) {
         console.error("Error cargando habitaciones:", error);
@@ -50,29 +55,43 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="row g-4">
-            {rooms.map((room, index) => (
-              <div className="col-md-4" key={index}>
-                <div className="card h-100 border-0 shadow-sm overflow-hidden photo-card">
-                  <div className="card-img-container">
-                    <img
-                      src={room.img}
-                      className="card-img-top"
-                      alt={room.title}
-                    />
-                  </div>
-                  <div className="card-body p-4">
-                    <h3 className="h4 fw-bold">{room.title}</h3>
-                    <p className="text-muted mb-0">
-                      Desde{" "}
-                      <span className="fw-bold text-dark">{room.price}</span> /
-                      noche
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className="row g-4">
+  {rooms.map((room, index) => (
+    <div className="col-md-4" key={index}>
+      
+      <Link
+        to={`/habitaciones/${room._id}`}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        <div className="card h-100 border-0 shadow-sm overflow-hidden photo-card">
+          
+          <div className="card-img-container">
+            <img
+              src={
+                room.image ||
+                room.images?.[0] ||
+                "https://picsum.photos/400/250"
+              }
+              className="card-img-top"
+              alt={room.name}
+            />
           </div>
+
+          <div className="card-body p-4">
+            <h3 className="h4 fw-bold">{room.name}</h3>
+            <p className="text-muted mb-0">
+              Desde{" "}
+              <span className="fw-bold text-dark">{room.price}</span> /
+              noche
+            </p>
+          </div>
+
+        </div>
+      </Link>
+
+    </div>
+  ))}
+</div>
         </div>
       </section>
 
@@ -178,21 +197,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const rooms = [
-  {
-    title: "Oro Centro Suites",
-    price: "$100.000",
-    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/623950827.jpg?k=060bc9b367f2470c9b2f8c935c4e3ad9a7b2c9b0d6adb98c22e379cbb4ae8441&o=",
-  },
-  {
-    title: "Garden Point Luxury Apartments",
-    price: "$120.000",
-    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/207698391.jpg?k=07f0a7b3dbf652732201f9d8ceb6eb189d577fc92590ca602b3d0bbd8b18b260&o=",
-  },
-  {
-    title: "Sheraton Tucumán Hotel",
-    price: "$150.000",
-    img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/629802758.jpg?k=366ab5fdd3cdd8cd5b71462520727e65aab986384fb93d0cc9277a449857eb7d&o=",
-  },
-];
