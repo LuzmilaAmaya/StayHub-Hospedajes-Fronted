@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRooms } from "../services/room.service";
+import { updateRoom } from "../services/room.service";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -8,7 +9,23 @@ const Rooms = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-
+ const toggleVisibility = async (room) => {
+  try {
+   await updateRoom(room._id, {
+  active: !room.active,
+});
+console.log("Nuevo estado:", !room.active);
+    setRooms((prevRooms) =>
+      prevRooms.map((r) =>
+        r._id === room._id
+          ? { ...r, active: !r.active }
+          : r
+      )
+    );
+  } catch (error) {
+    console.error("Error cambiando visibilidad:", error);
+  }
+};
   useEffect(() => {
     getRooms()
       .then((res) => {
@@ -31,8 +48,9 @@ const Rooms = () => {
 
   if (error) {
     return (
-      <div className="text-center mt-5 text-danger">
-        <h4>{error}</h4>
+      <div className="text-center mt-5">
+        <div className="spinner-border text-danger" role="status"></div>
+        <p className="mt-3">Cargando habitaciones...</p>
       </div>
     );
   }
@@ -59,11 +77,15 @@ const Rooms = () => {
               >
                 <img
                   src={
+                    room.image ||
                     room.images?.[0] ||
                     "https://picsum.photos/400/250"
                   }
                   className="card-img-top"
                   alt={room.name}
+                  onError={(e) => {
+                    e.target.src = "https://picsum.photos/400/250";
+                  }}
                   style={{
                     borderTopLeftRadius: "16px",
                     borderTopRightRadius: "16px",
@@ -74,7 +96,15 @@ const Rooms = () => {
 
                 <div className="card-body d-flex flex-column">
                   <h5 className="fw-semibold mb-2">{room.name}</h5>
-
+                  {room.active ? (
+                    <span style={{ color: "green", fontWeight: "bold" }}>
+                      👁️ Visible en Home
+                    </span>
+                  ) : (
+                    <span style={{ color: "red", fontWeight: "bold" }}>
+                      🔒 Oculta en Home
+                    </span>
+                  )}
                   <p
                     className="mb-2"
                     style={{ color: "#B19E8D", fontSize: "14px" }}
@@ -86,11 +116,13 @@ const Rooms = () => {
                     style={{ fontSize: "14px", color: "#666" }}
                     className="flex-grow-1"
                   >
-                    {room.description?.slice(0, 80)}...
+                    {room.description
+                      ? room.description.slice(0, 80) + "..."
+                      : "Sin descripción"}
                   </p>
 
                   <h4 className="fw-bold mt-auto" style={{ color: "#B4280D" }}>
-                    ${room.pricePerNight}
+                    ${room.pricePerNight || room.price}
                     <span
                       style={{
                         fontSize: "14px",
@@ -116,6 +148,20 @@ const Rooms = () => {
                     }}
                   >
                     Ver detalles
+                  </button>
+                  <button
+                    className="btn mt-2"
+                    style={{
+                      backgroundColor: room.active ? "#dc3545" : "#28a745",
+                      color: "#fff",
+                      borderRadius: "10px",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleVisibility(room);
+                    }}
+                  >
+                    {room.active ? "Ocultar del Home" : "Mostrar en Home"}
                   </button>
                 </div>
               </div>
