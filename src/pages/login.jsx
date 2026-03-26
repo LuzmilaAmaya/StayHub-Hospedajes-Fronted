@@ -41,6 +41,8 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(adminUser));
       localStorage.setItem("token", "admin-token");
 
+      window.dispatchEvent(new Event("authChange"));
+
       setAlert("Bienvenido Administrador ");
 
       setTimeout(() => {
@@ -53,6 +55,8 @@ export default function Login() {
     if (userFound) {
       localStorage.setItem("user", JSON.stringify(userFound));
       localStorage.setItem("token", "user-token");
+
+      window.dispatchEvent(new Event("authChange"));
 
       setAlert(`Bienvenido ${userFound.nombre} `);
 
