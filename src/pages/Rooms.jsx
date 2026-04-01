@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRooms } from "../services/room.service";
 import { updateRoom } from "../services/room.service";
+import "./Rooms.css";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -62,9 +63,9 @@ console.log("Nuevo estado:", !room.active);
           Nuestras Habitaciones
         </h1>
 
-        <div className="row">
+       <div className="cards-container">
           {rooms.map((room) => (
-            <div key={room._id} className="col-md-6 col-lg-4 mb-4">
+            <div key={room._id} className="card-wrapper">
               <div
                 className="card border-0 shadow-sm h-100"
                 style={{

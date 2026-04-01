@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-feat/rooms
-import Layout from "../components/Layout";
 import Layout from "../components/Layout.jsx";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/login";
@@ -13,7 +11,6 @@ import Profile from "../pages/Profile";
 import AdminReservationsPage from "../pages/Admin/AdminReservationsPage";
 import AdminRoomsPage from "../pages/Admin/AdminRoomsPage";
 import UsersAdmin from "../pages/Admin/UsersAdmin";
-
 import RoomDetails from "../pages/RoomsDetails";
 
 export default function AppRouter() {

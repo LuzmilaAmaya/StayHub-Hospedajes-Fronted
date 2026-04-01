@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
+import { loginWithGoogle } from "../services/auth.service";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,15 +15,23 @@ export default function Login() {
       const res = await login({ email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-feat/rooms
-
-
-       
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");
     } catch (err) {
       setError(err?.response?.data?.message || "Credenciales incorrectas");
+    }
+  };
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await loginWithGoogle();
+      localStorage.setItem("user", JSON.stringify(user));
+      window.dispatchEvent(new Event("authChange"));
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setError("Error al iniciar con Google");
     }
   };
 
@@ -62,6 +71,14 @@ feat/rooms
           </div>
 
           <button className="btn btn-primary w-100">Entrar</button>
+          
+          <button
+            type="button"
+            className="btn btn-dark w-100 mt-2"
+            onClick={handleGoogleLogin}
+          >
+            Iniciar sesión con Google
+          </button>
         </form>
 
         <p className="text-center mt-3 mb-0">

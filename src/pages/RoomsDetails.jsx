@@ -30,62 +30,56 @@ const RoomDetails = () => {
           {room.name}
         </h1>
 
-        <div className="row">
-          <div className="col-lg-8">
-            <img
-              src={room.images?.[0]}
-              alt={room.name}
-              className="img-fluid rounded shadow-sm mb-4"
-              style={{ height: "400px", objectFit: "cover", width: "100%" }}
-            />
-            <div className="row">
-              {room.images?.slice(1).map((img, index) => (
-                <div key={index} className="col-md-4 mb-3">
-                  <img
-                    src={img}
-                    alt={`img-${index}`}
-                    className="img-fluid rounded"
-                    style={{
-                      height: "150px",
-                      objectFit: "cover",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
+        <div className="room-detail-container">
 
-            <div className="card border-0 shadow-sm p-4 mt-4">
-              <h4>Detalles</h4>
-              <p>
-                <strong>Tipo:</strong> {room.type}
-              </p>
-              <p>
-                <strong>Capacidad:</strong> {room.capacity} huéspedes
-              </p>
-              <p>{room.description}</p>
-            </div>
-          </div>
+  {/* IZQUIERDA */}
+  <div className="room-info">
+    <img
+      src={room.images?.[0]}
+      alt={room.name}
+      className="img-fluid rounded shadow-sm mb-4"
+      style={{ height: "400px", objectFit: "cover", width: "100%" }}
+    />
 
-          <div className="col-lg-4">
-            <div
-              className="card border-0 shadow-sm p-4"
-              style={{  color: "#B4280D" }}
-            >
-              <h3 className="fw-bold" style={{ color: "#B4280D" }}>
-                ${room.pricePerNight || room.price }
-                <span style={{ fontSize: "14px", color: "#B19E8D" }}>
-                  {" "}
-                  / noche
-                </span>
-              </h3>
+    <div className="room-gallery">
+      {room.images?.slice(1).map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt={`img-${index}`}
+          className="gallery-img"
+        />
+      ))}
+    </div>
 
-              <hr />
+    <div className="card border-0 shadow-sm p-4 mt-4">
+      <h4>Detalles</h4>
+      <p><strong>Tipo:</strong> {room.type}</p>
+      <p><strong>Capacidad:</strong> {room.capacity} huéspedes</p>
+      <p>{room.description}</p>
+    </div>
+  </div>
 
-              <ReservationForm roomId={room._id} pricePerNight={room.price} />
-            </div>
-          </div>
-        </div>
+  {/* DERECHA */}
+  <div className="room-form">
+    <div className="card border-0 shadow-sm p-4">
+      <h3 className="fw-bold" style={{ color: "#B4280D" }}>
+        ${room.pricePerNight || room.price}
+        <span style={{ fontSize: "14px", color: "#B19E8D" }}>
+          {" "} / noche
+        </span>
+      </h3>
+
+      <hr />
+
+      <ReservationForm
+        roomId={room._id}
+        pricePerNight={room.price}
+      />
+    </div>
+  </div>
+
+</div>
       </div>
     </div>
   );

@@ -1,0 +1,49 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.card-wrapper {
+  width: 100%;
+}
+.room-detail-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.room-info {
+  flex: 2;
+}
+
+.room-form {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* galería */
+.room-gallery {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gallery-img {
+  width: 32%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.room-form {
+  position: sticky;
+  top: 100px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .room-detail-container {
+    flex-direction: column;
+  }
+}
