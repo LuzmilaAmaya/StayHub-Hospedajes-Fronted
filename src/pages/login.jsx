@@ -1,192 +1,87 @@
 import { useState } from "react";
+import { login } from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "../pages/register.css";
+import { loginWithGoogle } from "../services/auth.service";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [showPass, setShowPass] = useState(false);
-  const [alert, setAlert] = useState("");
-
-  // ADMIN 
-  const adminUser = {
-    email: "admin@stayhub.com",
-    password: "admin123",
-    role: "admin",
-    nombre: "Administrador",
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-
-    const userFound = users.find(
-      (u) =>
-        u.email === form.email &&
-        u.password === form.password
-    );
-
-    // ADMIN login
-    if (
-      form.email === adminUser.email &&
-      form.password === adminUser.password
-    ) {
-      localStorage.setItem("user", JSON.stringify(adminUser));
-      localStorage.setItem("token", "admin-token");
-
-
-
+    try {
+      const res = await login({ email, password });
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       window.dispatchEvent(new Event("authChange"));
 
-
-      setAlert("Bienvenido Administrador ");
-
-      setTimeout(() => {
-        navigate("/admin/usuarios");
-      }, 1500);
-
-
-      return;
-    }
-
-    if (userFound) {
-      localStorage.setItem("user", JSON.stringify(userFound));
-      localStorage.setItem("token", "user-token");
-
-      setAlert(`Bienvenido ${userFound.nombre} `);
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
-
-
-
-      return;
-    }
-
-    if (userFound) {
-      localStorage.setItem("user", JSON.stringify(userFound));
-      localStorage.setItem("token", "user-token");
-
-      window.dispatchEvent(new Event("authChange"));
-
-      setAlert(`Bienvenido ${userFound.nombre} `);
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
-
-
-    } else {
-      setAlert("Correo o contraseña incorrectos ❌");
+      navigate("/");
+    } catch (err) {
+      setError(err?.response?.data?.message || "Credenciales incorrectas");
     }
   };
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await loginWithGoogle();
+      localStorage.setItem("user", JSON.stringify(user));
+      window.dispatchEvent(new Event("authChange"));
 
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setError("Error al iniciar con Google");
+    }
+  };
   return (
-    <div className="register-bg">
-
+    <div className="container vh-100 d-flex align-items-center justify-content-center">
       <div
-        id="bgCarousel"
-        className="carousel slide carousel-fade"
-        data-bs-ride="carousel"
+        className="card shadow-lg p-4"
+        style={{ width: "100%", maxWidth: 420 }}
       >
-        <div className="carousel-inner">
+        <h3 className="text-center mb-4">Iniciar sesión</h3>
 
-          <div className="carousel-item active">
-            <img
-              src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-              className="d-block w-100 bg-img"
-              alt="hotel"
-            />
-          </div>
-
-          <div className="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
-              className="d-block w-100 bg-img"
-              alt="room"
-
-            />
-          </div>
-
-          <div className="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1590490360182-c33d57733427"
-              className="d-block w-100 bg-img"
-              alt="suite"
-            />
-          </div>
-
-
-            />
-          </div>
-
-          <div className="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1590490360182-c33d57733427"
-              className="d-block w-100 bg-img"
-              alt="suite"
-            />
-          </div>
-
-
-        </div>
-      </div>
-
-      <div className="register-card">
-
-        <h2 className="title">Iniciar Sesión</h2>
-
-        {alert && <div className="alert-pro">{alert}</div>}
+        {error && <div className="alert alert-danger">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={form.email}
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
-            required
-          />
-
-          <div className="password-group">
+          <div className="mb-3">
+            <label className="form-label">Email</label>
             <input
-              type={showPass ? "text" : "password"}
-              placeholder="Contraseña"
-              value={form.password}
-              onChange={(e) =>
-                setForm({ ...form, password: e.target.value })
-              }
+              type="email"
+              className="form-control"
+              placeholder="correo@ejemplo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
-
-            <span
-              className="eye"
-              onClick={() => setShowPass(!showPass)}
-            >
-              {showPass ? <FaEyeSlash /> : <FaEye />}
-            </span>
           </div>
 
-          <button className="btn-register">
-            Iniciar sesión
-          </button>
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
+          <button className="btn btn-primary w-100">Entrar</button>
+          <button
+            type="button"
+            className="btn btn-dark w-100 mt-2"
+            onClick={handleGoogleLogin}
+          >
+            Iniciar sesión con Google
+          </button>
         </form>
 
-        <p className="login-link">
-          ¿No tienes cuenta? <Link to="/registro">Crear cuenta</Link>
+        <p className="text-center mt-3 mb-0">
+          ¿No tenés cuenta? <Link to="/registro">Registrate</Link>
         </p>
-
       </div>
     </div>
   );
