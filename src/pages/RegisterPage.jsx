@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../pages/register.css";
+import { register} from "../services/auth.service"
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -41,22 +42,37 @@ export default function RegisterPage() {
     setStrength(score);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      setAlert("Las contraseñas no coinciden");
-      return;
-    }
+  if (form.password !== form.confirmPassword) {
+    setAlert("Las contraseñas no coinciden");
+    return;
+  }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(form);
-    localStorage.setItem("users", JSON.stringify(users));
+  try {
+    const res = await register({
+      fullName: form.nombre + " " + form.apellido,
+      email: form.email,
+      password: form.password,
+      phone: "000000000",
+      documentId: "00000000",
+    });
 
-    setAlert("Registro exitoso");
+  
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    setTimeout(() => navigate("/"), 1800);
-  };
+    window.dispatchEvent(new Event("authChange"));
+
+    setAlert("Registro exitoso!!");
+
+    setTimeout(() => navigate("/"), 1500);
+
+  } catch (err) {
+    setAlert(err?.response?.data?.message || "Error al registrarse");
+  }
+};
 
   return (
     <div className="register-bg">

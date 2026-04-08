@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
 import { loginWithGoogle } from "../services/auth.service";
+import { googleLoginBackend } from "../services/auth.service";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -22,25 +23,40 @@ export default function Login() {
       setError(err?.response?.data?.message || "Credenciales incorrectas");
     }
   };
-  const handleGoogleLogin = async () => {
-    try {
-      const user = await loginWithGoogle();
-      localStorage.setItem("user", JSON.stringify(user));
-      window.dispatchEvent(new Event("authChange"));
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
 
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      setError("Error al iniciar con Google");
-    }
-  };
+const handleGoogleLogin = async () => {
+  if (loadingGoogle) return;
+
+  setLoadingGoogle(true);
+
+  try {
+    const firebaseUser = await loginWithGoogle();
+
+    const res = await googleLoginBackend({
+      fullName: firebaseUser.displayName,
+      email: firebaseUser.email,
+      googleId: firebaseUser.uid,
+      photo: firebaseUser.photoURL,
+    });
+
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    window.dispatchEvent(new Event("authChange"));
+
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+    setError("Error con Google");
+  } finally {
+    setLoadingGoogle(false);
+  }
+};
   return (
-    <div className="container vh-100 d-flex align-items-center justify-content-center">
-      <div
-        className="card shadow-lg p-4"
-        style={{ width: "100%", maxWidth: 420 }}
-      >
-        <h3 className="text-center mb-4">Iniciar sesión</h3>
+    <div className="login-bg d-flex align-items-center justify-content-center">
+      <div className="card login-card shadow-lg p-4">
+        <h3 className="text-center mb-4 fw-bold">Bienvenido 👋</h3>
 
         {error && <div className="alert alert-danger">{error}</div>}
 
@@ -49,7 +65,7 @@ export default function Login() {
             <label className="form-label">Email</label>
             <input
               type="email"
-              className="form-control"
+              className="form-control input-custom"
               placeholder="correo@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -61,21 +77,22 @@ export default function Login() {
             <label className="form-label">Contraseña</label>
             <input
               type="password"
-              className="form-control"
-              placeholder="••••••••"
+              className="form-control input-custom"
+              placeholder="ingrese su contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          <button className="btn btn-primary w-100">Entrar</button>
+          <button className="btn btn-danger w-100 btn-custom">Entrar</button>
           <button
             type="button"
-            className="btn btn-dark w-100 mt-2"
+            className="btn btn-danger w-100 mt-2"
             onClick={handleGoogleLogin}
+             disabled={loadingGoogle}
           >
-            Iniciar sesión con Google
+            {loadingGoogle ? "Cargando..." : "Iniciar sesion con Google"}
           </button>
         </form>
 

@@ -98,7 +98,6 @@ export default function ReservationForm({ roomId, pricePerNight }) {
     form.checkIn && form.checkOut ? getDiffDays(form.checkIn, form.checkOut) : 0;
   const total = pricePerNight && nights > 0 ? pricePerNight * nights : null;
 
-  // Mínimo para checkOut = checkIn + 1 día
   const minCheckOut = () => {
     if (!form.checkIn) return toInputDate(tomorrow);
     const d = new Date(form.checkIn);
@@ -106,7 +105,6 @@ export default function ReservationForm({ roomId, pricePerNight }) {
     return toInputDate(d);
   };
 
-  /* ── Sin sesión ── */
   if (!user) {
     return (
       <div style={s.lockedBox}>
@@ -124,8 +122,6 @@ export default function ReservationForm({ roomId, pricePerNight }) {
       </div>
     );
   }
-
-  /* ── Éxito ── */
   if (success) {
     return (
       <div style={s.successBox}>
@@ -145,12 +141,9 @@ export default function ReservationForm({ roomId, pricePerNight }) {
       </div>
     );
   }
-
-  /* ── Formulario ── */
   return (
     <form onSubmit={handleSubmit} noValidate>
 
-      {/* Badge usuario */}
       <div style={s.userBadge}>
         <div style={s.avatar}>{user.fullName?.[0]?.toUpperCase() || "U"}</div>
         <div>
@@ -160,8 +153,6 @@ export default function ReservationForm({ roomId, pricePerNight }) {
       </div>
 
       {apiError && <div style={s.apiError}>{apiError}</div>}
-
-      {/* Fechas */}
       <div style={s.datesGrid}>
         <div>
           <label style={s.label}>

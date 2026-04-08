@@ -5,14 +5,28 @@ import logo from "../assets/logonegro.png";
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
-
+  const [user, setUser] = useState(() => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      return storedUser && storedUser !== "undefined"
+        ? JSON.parse(storedUser)
+        : null;
+    } catch {
+      return null;
+    }
+  });
   useEffect(() => {
     const handleAuthChange = () => {
       const storedUser = localStorage.getItem("user");
-      setUser(storedUser ? JSON.parse(storedUser) : null);
+     if (storedUser && storedUser !== "undefined") {
+  try {
+    setUser(JSON.parse(storedUser));
+  } catch {
+    setUser(null);
+  }
+} else {
+  setUser(null);
+}
     };
 
     window.addEventListener("authChange", handleAuthChange);
@@ -26,7 +40,7 @@ export default function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    window.dispatchEvent(new Event("authChange")); 
+    window.dispatchEvent(new Event("authChange"));
 
     navigate("/login");
   };
@@ -34,7 +48,6 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
       <div className="container">
-        
         <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
           <img src={logo} alt="StayHub Logo" className="navbar-logo me-2" />
           <span className="text-dark">STAYHUB</span>
@@ -50,9 +63,7 @@ export default function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            
             <li className="nav-item">
               <Link className="nav-link fw-semibold px-3" to="/habitaciones">
                 Habitaciones
@@ -111,7 +122,7 @@ export default function Navbar() {
                   className="btn btn-link text-dark fw-bold px-3 text-decoration-none"
                   to="/perfil"
                 >
-                  👤 {user.nombre || user.email}
+                 👤 {user.fullName || user.displayName || user.email}
                 </Link>
 
                 <button
@@ -123,7 +134,10 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
+                <Link
+                  className="btn btn-link text-dark fw-bold px-3"
+                  to="/login"
+                >
                   Iniciar Sesión
                 </Link>
 
@@ -136,7 +150,6 @@ export default function Navbar() {
               </>
             )}
           </div>
-
         </div>
       </div>
     </nav>
