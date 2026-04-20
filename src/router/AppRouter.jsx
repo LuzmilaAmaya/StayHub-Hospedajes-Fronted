@@ -26,7 +26,6 @@ export default function AppRouter() {
           <Route path="/habitaciones" element={<Rooms />} />
           <Route path="/habitaciones/:id" element={<RoomDetails />} />
           <Route path="/reservas" element={<ReservationsPage />} />
-          <Route path="/perfil" element={<Profile />} />
           <Route path="/admin/usuarios" element={<ProtectedRoute role="admin"> <UsersAdmin/> </ProtectedRoute>} />
           <Route path="/admin/reservas" element={<ProtectedRoute role="admin"> <AdminReservationsPage/> </ProtectedRoute>} />
           <Route path="/admin/habitaciones" element={<ProtectedRoute role="admin"> <AdminRoomsPage /> </ProtectedRoute>} />

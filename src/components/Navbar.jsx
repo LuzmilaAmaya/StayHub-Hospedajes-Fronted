@@ -117,22 +117,47 @@ export default function Navbar() {
 
           <div className="d-flex gap-2 align-items-center">
             {user ? (
-              <>
-                <Link
-                  className="btn btn-link text-dark fw-bold px-3 text-decoration-none"
-                  to="/perfil"
-                >
-                 👤 {user.fullName || user.displayName || user.email}
-                </Link>
+  <div className="dropdown">
+    <button
+      className="btn d-flex align-items-center gap-2"
+      data-bs-toggle="dropdown"
+      style={{ border: "none", background: "transparent" }}
+    >
+      <img
+        src={
+          user.photo || `https://ui-avatars.com/api/?name=${user.fullName}&background=B4280D&color=fff`
+        }
+        alt="user"
+        style={{
+          width: "35px",
+          height: "35px",
+          borderRadius: "50%",
+          objectFit: "cover",
+        }}
+      />
 
-                <button
-                  className="btn btn-outline-secondary rounded-pill px-4 fw-bold"
-                  onClick={handleLogout}
-                >
-                  Cerrar Sesión
-                </button>
-              </>
-            ) : (
+      <span className="fw-semibold">
+        {user.fullName || user.email}
+      </span>
+    </button>
+
+    <ul className="dropdown-menu dropdown-menu-end shadow">
+      <li>
+        <Link className="dropdown-item" to="/reservas">
+          📅 Mis reservas
+        </Link>
+      </li>
+
+      <li><hr className="dropdown-divider" /></li>
+
+      <li>
+        <button className="dropdown-item text-danger" onClick={handleLogout}>
+          🚪 Cerrar sesion
+        </button>
+      </li>
+    </ul>
+  </div>
+) : (
               <>
                 <Link
                   className="btn btn-link text-dark fw-bold px-3"
