@@ -16,6 +16,7 @@ export default function HomePage() {
         );
 
         setRooms(visibleRooms);
+        setRooms(response.data);
       } catch (error) {
         console.error("Error cargando habitaciones:", error);
       }

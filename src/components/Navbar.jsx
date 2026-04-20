@@ -3,28 +3,46 @@ import { useState, useEffect } from "react";
 import logo from "../assets/logonegro.png";
 
 export default function Navbar() {
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
- 
-  useEffect(() => {
-    const loadUser = () => {
+  const [user, setUser] = useState(() => {
+    try {
       const storedUser = localStorage.getItem("user");
-      setUser(storedUser ? JSON.parse(storedUser) : null);
+      return storedUser && storedUser !== "undefined"
+        ? JSON.parse(storedUser)
+        : null;
+    } catch {
+      return null;
+    }
+  });
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const storedUser = localStorage.getItem("user");
+     if (storedUser && storedUser !== "undefined") {
+  try {
+    setUser(JSON.parse(storedUser));
+  } catch {
+    setUser(null);
+  }
+} else {
+  setUser(null);
+}
     };
-    loadUser();
 
-    
-    window.addEventListener("authChange", loadUser);
-    return () => window.removeEventListener("authChange", loadUser);
+    window.addEventListener("authChange", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("authChange", handleAuthChange);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser(null);
+
     window.dispatchEvent(new Event("authChange"));
-    navigate("/");
+
+    navigate("/login");
   };
 
   return (
@@ -51,12 +69,13 @@ export default function Navbar() {
                 Habitaciones
               </Link>
             </li>
-            
+
             <li className="nav-item">
               <Link className="nav-link fw-semibold px-3" to="#">
                 Servicios
               </Link>
             </li>
+
             {user && (
               <li className="nav-item">
                 <Link className="nav-link fw-semibold px-3" to="/reservas">
@@ -64,6 +83,7 @@ export default function Navbar() {
                 </Link>
               </li>
             )}
+
             {user?.role === "admin" && (
               <li className="nav-item dropdown">
                 <a
@@ -97,28 +117,55 @@ export default function Navbar() {
 
           <div className="d-flex gap-2 align-items-center">
             {user ? (
+  <div className="dropdown">
+    <button
+      className="btn d-flex align-items-center gap-2"
+      data-bs-toggle="dropdown"
+      style={{ border: "none", background: "transparent" }}
+    >
+      <img
+        src={
+          user.photo || `https://ui-avatars.com/api/?name=${user.fullName}&background=B4280D&color=fff`
+        }
+        alt="user"
+        style={{
+          width: "35px",
+          height: "35px",
+          borderRadius: "50%",
+          objectFit: "cover",
+        }}
+      />
+
+      <span className="fw-semibold">
+        {user.fullName || user.email}
+      </span>
+    </button>
+
+    <ul className="dropdown-menu dropdown-menu-end shadow">
+      <li>
+        <Link className="dropdown-item" to="/reservas">
+          📅 Mis reservas
+        </Link>
+      </li>
+
+      <li><hr className="dropdown-divider" /></li>
+
+      <li>
+        <button className="dropdown-item text-danger" onClick={handleLogout}>
+          🚪 Cerrar sesion
+        </button>
+      </li>
+    </ul>
+  </div>
+) : (
               <>
                 <Link
-                  className="btn btn-link text-dark fw-bold px-3 text-decoration-none"
-                  to="/perfil"
+                  className="btn btn-link text-dark fw-bold px-3"
+                  to="/login"
                 >
-                  <span className="material-icons align-middle me-1" style={{ fontSize: "1.1rem" }}>
-                    account_circle
-                  </span>
-                  {user.name || user.email}
-                </Link>
-                <button
-                  className="btn btn-outline-secondary rounded-pill px-4 fw-bold"
-                  onClick={handleLogout}
-                >
-                  Cerrar Sesión
-                </button>
-              </>
-            ) : (
-              <>
-                <Link className="btn btn-link text-dark fw-bold px-3" to="/login">
                   Iniciar Sesión
                 </Link>
+
                 <Link
                   className="btn btn-primary-custom rounded-pill px-4 fw-bold"
                   to="/registro"

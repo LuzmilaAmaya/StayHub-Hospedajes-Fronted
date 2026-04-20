@@ -37,8 +37,6 @@ StayHub es una aplicación web full stack para la gestión de habitaciones y res
 
 * Eliminar habitación
 
-* Listar habitaciones
-
 * Validaciones de formulario (sin números negativos, límites de caracteres)
 
 📅 Gestión de Reservas

@@ -19,5 +19,3 @@ export const updateRoom = (id, roomData) => {
 export const deleteRoom = (id) => {
   return api.delete(`/rooms/${id}`);
 };
-
-

@@ -1,20 +1,29 @@
 import { useState } from "react";
-import { login } from "../services/auth.service";
+import { login, loginWithGoogle, googleLoginBackend } from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
-import { loginWithGoogle } from "../services/auth.service";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "<div styleName={} />
+<pages />
+<login></login>.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await login({ email, password });
+
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");
@@ -22,66 +31,109 @@ export default function Login() {
       setError(err?.response?.data?.message || "Credenciales incorrectas");
     }
   };
+
   const handleGoogleLogin = async () => {
+    if (loadingGoogle) return;
+
+    setLoadingGoogle(true);
+
     try {
-      const user = await loginWithGoogle();
-      localStorage.setItem("user", JSON.stringify(user));
+      const firebaseUser = await loginWithGoogle();
+
+      const res = await googleLoginBackend({
+        fullName: firebaseUser.displayName,
+        email: firebaseUser.email,
+        googleId: firebaseUser.uid,
+        photo: firebaseUser.photoURL,
+      });
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");
-    } catch (error) {
-      console.error(error);
-      setError("Error al iniciar con Google");
+    } catch (err) {
+      console.error(err);
+      setError("Error con Google");
+    } finally {
+      setLoadingGoogle(false);
     }
   };
 
   return (
-    <div className="container vh-100 d-flex align-items-center justify-content-center">
+    <div className="login-bg">
       <div
-        className="card shadow-lg p-4"
-        style={{ width: "100%", maxWidth: 420 }}
+        id="bgCarousel"
+        className="carousel slide carousel-fade"
+        data-bs-ride="carousel"
       >
-        <h3 className="text-center mb-4">Iniciar sesión</h3>
-
-        {error && <div className="alert alert-danger">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="correo@ejemplo.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
+              className="d-block w-100 bg-img"
+              alt="hotel1"
             />
           </div>
+          <div className="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+              className="d-block w-100 bg-img"
+              alt="hotel2"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427"
+              className="d-block w-100 bg-img"
+              alt="hotel3"
+            />
+          </div>
+        </div>
+      </div>
 
-          <div className="mb-3">
-            <label className="form-label">Contraseña</label>
+      <div className="login-card">
+        <h2 className="title">Bienvenido</h2>
+
+        {error && <div className="alert-pro">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <div className="password-group">
             <input
-              type="password"
-              className="form-control"
-              placeholder="••••••••"
+              type={showPass ? "text" : "password"}
+              placeholder="Ingrese su contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+
+            <span className="eye" onClick={() => setShowPass(!showPass)}>
+              {showPass ? <FaEyeSlash /> : <FaEye />}
+            </span>
           </div>
 
-          <button className="btn btn-primary w-100">Entrar</button>
-          
+          <button className="btn-login">Entrar</button>
+
           <button
             type="button"
-            className="btn btn-dark w-100 mt-2"
+            className="btn-google"
             onClick={handleGoogleLogin}
+            disabled={loadingGoogle}
           >
-            Iniciar sesión con Google
+            {loadingGoogle ? "Cargando..." : "Iniciar sesión con Google"}
           </button>
         </form>
 
-        <p className="text-center mt-3 mb-0">
+        <p className="register-link">
           ¿No tenés cuenta? <Link to="/registro">Registrate</Link>
         </p>
       </div>
