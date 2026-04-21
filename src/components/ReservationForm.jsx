@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createReservation } from "../services/reservation.service";
 
+
 const toInputDate = (date) => date.toISOString().split("T")[0];
 
 const getDiffDays = (from, to) => {
@@ -222,7 +223,7 @@ export default function ReservationForm({ roomId, pricePerNight }) {
 
       <p style={s.disclaimer}>
         <span className="material-icons" style={{ fontSize: "0.9rem", verticalAlign: "middle", marginRight: "3px" }}>shield</span>
-        Cancelación gratuita hasta 48hs antes
+        Cancelación gratuita hasta 24hs antes
       </p>
     </form>
   );

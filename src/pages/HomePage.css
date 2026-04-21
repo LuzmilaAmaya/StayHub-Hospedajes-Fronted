@@ -148,3 +148,14 @@ body {
 .footer-icon:hover {
   color: #B4280D;
 }
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.card-wrapper {
+  width: 100%;
+}

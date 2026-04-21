@@ -12,7 +12,7 @@ export default function HomePage() {
       try {
         const response = await getRooms();
         const visibleRooms = response.data.filter(
-          (room) => room.active !== false
+          (room) => room.active !== false,
         );
 
         setRooms(visibleRooms);
@@ -55,43 +55,39 @@ export default function HomePage() {
             </div>
           </div>
 
-        <div className="row g-4">
-  {rooms.map((room, index) => (
-    <div className="col-md-4" key={index}>
-      
-      <Link
-        to={`/habitaciones/${room._id}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <div className="card h-100 border-0 shadow-sm overflow-hidden photo-card">
-          
-          <div className="card-img-container">
-            <img
-              src={
-                room.image ||
-                room.images?.[0] ||
-                "https://picsum.photos/400/250"
-              }
-              className="card-img-top"
-              alt={room.name}
-            />
+          <div className="cards-container">
+            {rooms.map((room, index) => (
+              <div className="card-wrapper" key={index}>
+                <Link
+                  to={`/habitaciones/${room._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div className="card h-100 border-0 shadow-sm overflow-hidden photo-card">
+                    <div className="card-img-container">
+                      <img
+                        src={
+                          room.image ||
+                          room.images?.[0] ||
+                          "https://picsum.photos/400/250"
+                        }
+                        className="card-img-top"
+                        alt={room.name}
+                      />
+                    </div>
+
+                    <div className="card-body p-4">
+                      <h3 className="h4 fw-bold">{room.name}</h3>
+                      <p className="text-muted mb-0">
+                        Desde{" "}
+                        <span className="fw-bold text-dark">{room.price}</span>{" "}
+                        / noche
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
-
-          <div className="card-body p-4">
-            <h3 className="h4 fw-bold">{room.name}</h3>
-            <p className="text-muted mb-0">
-              Desde{" "}
-              <span className="fw-bold text-dark">{room.price}</span> /
-              noche
-            </p>
-          </div>
-
-        </div>
-      </Link>
-
-    </div>
-  ))}
-</div>
         </div>
       </section>
 

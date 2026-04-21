@@ -21,6 +21,9 @@ export default function AdminRoomsPage() {
   const [rooms, setRooms] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [isEditing, setIsEditing] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -134,6 +137,7 @@ export default function AdminRoomsPage() {
     console.error("Error cambiando estado:", error);
   }
 };
+
   return (
     <div className="container py-5">
       <h2 className="text-center fw-bold mb-4">Panel de Administración</h2>

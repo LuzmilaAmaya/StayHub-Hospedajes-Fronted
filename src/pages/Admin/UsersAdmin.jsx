@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { getUsers, updateUser } from "../../services/user.service";
 
 export default function UsersAdmin() {
   const [users, setUsers] = useState([]);
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
   const [selectedUser, setSelectedUser] = useState(null);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
@@ -10,8 +12,7 @@ export default function UsersAdmin() {
   const [alert, setAlert] = useState("");
 
   useEffect(() => {
-    const storedUsers =
-      JSON.parse(localStorage.getItem("users")) || [];
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
     setUsers(storedUsers);
   }, []);
 
@@ -41,18 +42,15 @@ export default function UsersAdmin() {
 
     if (!form.nombre || form.nombre.length < 2)
       newErrors.nombre = "Nombre mínimo 2 caracteres";
-    if (form.nombre?.length > 20)
-      newErrors.nombre = "Máximo 20 caracteres";
+    if (form.nombre?.length > 20) newErrors.nombre = "Máximo 20 caracteres";
 
     if (!form.apellido || form.apellido.length < 2)
       newErrors.apellido = "Apellido mínimo 2 caracteres";
-    if (form.apellido?.length > 20)
-      newErrors.apellido = "Máximo 20 caracteres";
+    if (form.apellido?.length > 20) newErrors.apellido = "Máximo 20 caracteres";
 
     if (!form.email || !/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Email inválido";
-    if (form.email?.length > 40)
-      newErrors.email = "Máximo 40 caracteres";
+    if (form.email?.length > 40) newErrors.email = "Máximo 40 caracteres";
 
     if (isCreating) {
       if (!form.password || form.password.length < 6)
@@ -87,26 +85,38 @@ export default function UsersAdmin() {
     } else {
       updatedUsers = users.map((u) =>
         u.email === selectedUser.email
-          ? { ...u, ...form, password: u.password } 
-          : u
+          ? { ...u, ...form, password: u.password }
+          : u,
       );
     }
 
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     setUsers(updatedUsers);
 
-    setAlert(
-      isCreating ? "Usuario creado ✅" : "Usuario actualizado"
-    );
+    setAlert(isCreating ? "Usuario creado ✅" : "Usuario actualizado");
 
     setTimeout(() => setAlert(""), 2000);
 
     setShowModal(false);
   };
+  const toggleUser = async (user) => {
+    try {
+      await updateUser(user._id, {
+        isActive: !user.isActive,
+      });
+
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u._id === user._id ? { ...u, isActive: !u.isActive } : u,
+        ),
+      );
+    } catch (error) {
+      console.error("Error actualizando usuario:", error);
+    }
+  };
 
   return (
     <div className="container py-5">
-
       {alert && <div className="alert-pro">{alert}</div>}
 
       <div className="d-flex justify-content-between mb-5">
@@ -125,16 +135,29 @@ export default function UsersAdmin() {
       <div className="row">
         {users.map((user, index) => (
           <div className="col-md-4 mb-4" key={index}>
-            <div
-              className="card user-card p-4"
-              onClick={() => openModal(user)}
-            >
-              <h5>{user.nombre} {user.apellido}</h5>
+            <div className="card user-card p-4" onClick={() => openModal(user)}>
+              <h5>{user.fullName}</h5>
               <p className="text-muted small">{user.email}</p>
 
-              <span className={`role-badge ${user.role}`}>
-                {user.role}
-              </span>
+              <span className={`role-badge ${user.role}`}>{user.role}</span>
+
+              <p className="mt-2 fw-bold">
+                {user.isActive ? "🟢 Activo" : "🔴 Baneado"}
+              </p>
+
+              {loggedUser?._id !== user._id ? (
+                <button
+                  className={`btn mt-2 ${user.isActive ? "btn-danger" : "btn-success"}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleUser(user);
+                  }}
+                >
+                  {user.isActive ? "Banear" : "Activar"}
+                </button>
+              ) : (
+                <p className="mt-2 text-primary fw-bold">Tu cuenta</p>
+              )}
             </div>
           </div>
         ))}
@@ -143,7 +166,6 @@ export default function UsersAdmin() {
       {showModal && (
         <div className="custom-modal">
           <div className="modal-box">
-
             <h4 className="mb-3">
               {isCreating ? "Crear Usuario" : "Editar Usuario"}
             </h4>
@@ -153,9 +175,7 @@ export default function UsersAdmin() {
               placeholder="Nombre"
               maxLength={20}
               value={form.nombre}
-              onChange={(e) =>
-                setForm({ ...form, nombre: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
             />
             <small className="text-danger">{errors.nombre}</small>
 
@@ -164,9 +184,7 @@ export default function UsersAdmin() {
               placeholder="Apellido"
               maxLength={20}
               value={form.apellido}
-              onChange={(e) =>
-                setForm({ ...form, apellido: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, apellido: e.target.value })}
             />
             <small className="text-danger">{errors.apellido}</small>
 
@@ -175,9 +193,7 @@ export default function UsersAdmin() {
               placeholder="Email"
               maxLength={40}
               value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
             <small className="text-danger">{errors.email}</small>
 
@@ -200,16 +216,13 @@ export default function UsersAdmin() {
             <select
               className="form-select custom-input"
               value={form.role}
-              onChange={(e) =>
-                setForm({ ...form, role: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, role: e.target.value })}
             >
               <option value="user">Usuario</option>
               <option value="admin">Admin</option>
             </select>
 
             <div className="d-flex justify-content-between mt-4">
-
               {!isCreating && (
                 <button
                   className="btn btn-danger"
@@ -227,16 +240,11 @@ export default function UsersAdmin() {
                   Cancelar
                 </button>
 
-                <button
-                  className="btn btn-success"
-                  onClick={handleSave}
-                >
+                <button className="btn btn-success" onClick={handleSave}>
                   Guardar
                 </button>
               </div>
-
             </div>
-
           </div>
         </div>
       )}
