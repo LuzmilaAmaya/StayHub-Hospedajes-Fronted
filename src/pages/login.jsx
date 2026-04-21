@@ -2,9 +2,7 @@ import { useState } from "react";
 import { login, loginWithGoogle, googleLoginBackend } from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "<div styleName={} />
-<pages />
-<login></login>.css";
+import "../pages/login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");

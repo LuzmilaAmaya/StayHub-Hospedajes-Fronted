@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getRoomById } from "../services/room.service";
 import ReservationForm from "../components/ReservationForm";
 
@@ -7,6 +8,8 @@ const RoomDetails = () => {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     getRoomById(id)
@@ -23,6 +26,10 @@ const RoomDetails = () => {
     return <div className="text-center mt-5">Habitación no encontrada</div>;
   }
 
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
   return (
     <div style={{ backgroundColor: "#E9EBEA", minHeight: "100vh" }}>
       <div className="container py-5">
@@ -31,55 +38,61 @@ const RoomDetails = () => {
         </h1>
 
         <div className="room-detail-container">
+          <div className="room-info">
+            <img
+              src={room.images?.[0]}
+              alt={room.name}
+              className="img-fluid rounded shadow-sm mb-4"
+              style={{ height: "400px", objectFit: "cover", width: "100%" }}
+            />
 
-  {/* IZQUIERDA */}
-  <div className="room-info">
-    <img
-      src={room.images?.[0]}
-      alt={room.name}
-      className="img-fluid rounded shadow-sm mb-4"
-      style={{ height: "400px", objectFit: "cover", width: "100%" }}
-    />
+            <div className="room-gallery">
+              {room.images?.slice(1).map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`img-${index}`}
+                  className="gallery-img"
+                />
+              ))}
+            </div>
 
-    <div className="room-gallery">
-      {room.images?.slice(1).map((img, index) => (
-        <img
-          key={index}
-          src={img}
-          alt={`img-${index}`}
-          className="gallery-img"
-        />
-      ))}
-    </div>
+            <div className="card border-0 shadow-sm p-4 mt-4">
+              <h4>Detalles</h4>
+              <p>
+                <strong>Tipo:</strong> {room.type}
+              </p>
+              <p>
+                <strong>Capacidad:</strong> {room.capacity} huéspedes
+              </p>
+              <p>{room.description}</p>
+            </div>
+          </div>
+          <div className="room-form">
+            <div className="card border-0 shadow-sm p-4">
+              <h3 className="fw-bold" style={{ color: "#B4280D" }}>
+                ${room.pricePerNight || room.price}
+              </h3>
 
-    <div className="card border-0 shadow-sm p-4 mt-4">
-      <h4>Detalles</h4>
-      <p><strong>Tipo:</strong> {room.type}</p>
-      <p><strong>Capacidad:</strong> {room.capacity} huéspedes</p>
-      <p>{room.description}</p>
-    </div>
-  </div>
+              <hr />
 
-  {/* DERECHA */}
-  <div className="room-form">
-    <div className="card border-0 shadow-sm p-4">
-      <h3 className="fw-bold" style={{ color: "#B4280D" }}>
-        ${room.pricePerNight || room.price}
-        <span style={{ fontSize: "14px", color: "#B19E8D" }}>
-          {" "} / noche
-        </span>
-      </h3>
-
-      <hr />
-
-      <ReservationForm
-        roomId={room._id}
-        pricePerNight={room.price}
-      />
-    </div>
-  </div>
-
-</div>
+              {room.status === "disponible" ? (
+                <ReservationForm roomId={room._id} pricePerNight={room.price} />
+              ) : (
+                <div className="text-center">
+                  <h5 className="fw-bold text-danger">
+                    {room.status === "reservada" &&
+                      "Esta habitación ya fue reservada"}
+                    {room.status === "mantenimiento" &&
+                      "Esta habitación está en mantenimiento"}
+                    {room.status === "fuera_servicio" &&
+                      "Esta habitación está fuera de servicio"}
+                  </h5>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

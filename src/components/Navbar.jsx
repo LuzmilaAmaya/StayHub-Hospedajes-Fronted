@@ -3,46 +3,26 @@ import { useState, useEffect } from "react";
 import logo from "../assets/logonegro.png";
 
 export default function Navbar() {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(() => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      return storedUser && storedUser !== "undefined"
-        ? JSON.parse(storedUser)
-        : null;
-    } catch {
-      return null;
-    }
-  });
   useEffect(() => {
-    const handleAuthChange = () => {
+    const loadUser = () => {
       const storedUser = localStorage.getItem("user");
-     if (storedUser && storedUser !== "undefined") {
-  try {
-    setUser(JSON.parse(storedUser));
-  } catch {
-    setUser(null);
-  }
-} else {
-  setUser(null);
-}
+      setUser(storedUser ? JSON.parse(storedUser) : null);
     };
+    loadUser();
 
-    window.addEventListener("authChange", handleAuthChange);
-
-    return () => {
-      window.removeEventListener("authChange", handleAuthChange);
-    };
+    window.addEventListener("authChange", loadUser);
+    return () => window.removeEventListener("authChange", loadUser);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+    setUser(null);
     window.dispatchEvent(new Event("authChange"));
-
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -75,8 +55,7 @@ export default function Navbar() {
                 Servicios
               </Link>
             </li>
-
-            {user && (
+            {user?.role === "guest" && (
               <li className="nav-item">
                 <Link className="nav-link fw-semibold px-3" to="/reservas">
                   Mi reserva
@@ -117,47 +96,27 @@ export default function Navbar() {
 
           <div className="d-flex gap-2 align-items-center">
             {user ? (
-  <div className="dropdown">
-    <button
-      className="btn d-flex align-items-center gap-2"
-      data-bs-toggle="dropdown"
-      style={{ border: "none", background: "transparent" }}
-    >
-      <img
-        src={
-          user.photo || `https://ui-avatars.com/api/?name=${user.fullName}&background=B4280D&color=fff`
-        }
-        alt="user"
-        style={{
-          width: "35px",
-          height: "35px",
-          borderRadius: "50%",
-          objectFit: "cover",
-        }}
-      />
-
-      <span className="fw-semibold">
-        {user.fullName || user.email}
-      </span>
-    </button>
-
-    <ul className="dropdown-menu dropdown-menu-end shadow">
-      <li>
-        <Link className="dropdown-item" to="/reservas">
-          📅 Mis reservas
-        </Link>
-      </li>
-
-      <li><hr className="dropdown-divider" /></li>
-
-      <li>
-        <button className="dropdown-item text-danger" onClick={handleLogout}>
-          🚪 Cerrar sesion
-        </button>
-      </li>
-    </ul>
-  </div>
-) : (
+              <>
+                <Link
+                  className="btn btn-link text-dark fw-bold px-3 text-decoration-none"
+                  to="/perfil"
+                >
+                  <span
+                    className="material-icons align-middle me-1"
+                    style={{ fontSize: "1.1rem" }}
+                  >
+                    account_circle
+                  </span>
+                  {user.name || user.email}
+                </Link>
+                <button
+                  className="btn btn-outline-secondary rounded-pill px-4 fw-bold"
+                  onClick={handleLogout}
+                >
+                  Cerrar Sesión
+                </button>
+              </>
+            ) : (
               <>
                 <Link
                   className="btn btn-link text-dark fw-bold px-3"
@@ -165,7 +124,6 @@ export default function Navbar() {
                 >
                   Iniciar Sesión
                 </Link>
-
                 <Link
                   className="btn btn-primary-custom rounded-pill px-4 fw-bold"
                   to="/registro"
