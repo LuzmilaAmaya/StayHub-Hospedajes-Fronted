@@ -1,35 +1,38 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { getRoomById } from "../services/room.service";
 import ReservationForm from "../components/ReservationForm";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 
 const RoomDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+ console.log("ROOM ID:", id);
+
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
 
+  if (!id) {
+    return <Navigate to="/habitaciones" replace />;
+  }
   useEffect(() => {
-    getRoomById(id)
-      .then((res) => setRoom(res.data))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, [id]);
+  if (!id) return;
 
-  if (loading) {
+  console.log("ROOM ID EN DETALLE:", id);
+
+  getRoomById(id)
+    .then((res) => setRoom(res.data))
+    .catch((err) => console.log("ERROR API:", err))
+    .finally(() => setLoading(false));
+}, [id]);
+
+  if (loading)
     return <div className="text-center mt-5">Cargando habitación...</div>;
-  }
-
-  if (!room) {
+  if (!room)
     return <div className="text-center mt-5">Habitación no encontrada</div>;
-  }
 
-  if (!user) {
-    navigate("/login");
-    return null;
-  }
   return (
     <div style={{ backgroundColor: "#E9EBEA", minHeight: "100vh" }}>
       <div className="container py-5">
@@ -68,6 +71,7 @@ const RoomDetails = () => {
               <p>{room.description}</p>
             </div>
           </div>
+
           <div className="room-form">
             <div className="card border-0 shadow-sm p-4">
               <h3 className="fw-bold" style={{ color: "#B4280D" }}>
@@ -77,7 +81,10 @@ const RoomDetails = () => {
               <hr />
 
               {room.status === "disponible" ? (
-                <ReservationForm roomId={room._id} pricePerNight={room.price} />
+                <ReservationForm
+                 id={room._id}
+                  pricePerNight={room.pricePerNight || room.price}
+                />
               ) : (
                 <div className="text-center">
                   <h5 className="fw-bold text-danger">

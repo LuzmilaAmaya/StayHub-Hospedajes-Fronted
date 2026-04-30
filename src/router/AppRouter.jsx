@@ -13,6 +13,7 @@ import AdminRoomsPage from "../pages/Admin/AdminRoomsPage";
 import UsersAdmin from "../pages/Admin/UsersAdmin";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RoomDetails from "../pages/RoomsDetails";
+import PaymentSuccess from "../pages/paymentSuccess";
 
 export default function AppRouter() {
   return (
@@ -24,11 +25,12 @@ export default function AppRouter() {
           <Route path="/registro" element={<Register />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/habitaciones" element={<Rooms />} />
-          <Route path="/habitaciones/:id" element={<RoomDetails />} />
+         <Route path="/habitaciones/:id" element={<RoomDetails />} />
           <Route path="/reservas" element={<ReservationsPage />} />
           <Route path="/admin/usuarios" element={<ProtectedRoute role="admin"> <UsersAdmin/> </ProtectedRoute>} />
           <Route path="/admin/reservas" element={<ProtectedRoute role="admin"> <AdminReservationsPage/> </ProtectedRoute>} />
           <Route path="/admin/habitaciones" element={<ProtectedRoute role="admin"> <AdminRoomsPage /> </ProtectedRoute>} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

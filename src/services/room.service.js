@@ -1,21 +1,13 @@
-import api from "../api/axios.js";
+import api from "../api/axios";
 
-export const getRooms = () => {
-  return api.get("/rooms");
-};
+export const getRooms = () => api.get("/rooms");
 
-export const getRoomById = (id) => {
-  return api.get(`/rooms/${id}`);
-};
+export const getRoomById = (id) => api.get(`/rooms/${id}`);
 
-export const createRoom = (roomData) => {
-  return api.post("/rooms", roomData);
-};
+export const createRoom = (data) => api.post("/rooms", data);
 
-export const updateRoom = (id, roomData) => {
-  return api.put(`/rooms/${id}`, roomData);
-};
+export const updateRoom = (id, data) =>
+  api.put(`/rooms/${id}`, data);
 
-export const deleteRoom = (id) => {
-  return api.delete(`/rooms/${id}`);
-};
+export const deleteRoom = (id) =>
+  api.delete(`/rooms/${id}`);
