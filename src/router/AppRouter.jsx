@@ -5,6 +5,7 @@ import Login from "../pages/login";
 import Register from "../pages/RegisterPage";
 import AboutPage from "../pages/AboutPage";
 import Rooms from "../pages/Rooms";
+import Contact from "../pages/Contacto";
 import NotFoundPage from "../pages/NotFound404";
 import ReservationsPage from "../pages/MyReservationsPage";
 import Profile from "../pages/Profile";
@@ -25,6 +26,7 @@ export default function AppRouter() {
           <Route path="/registro" element={<Register />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/habitaciones" element={<Rooms />} />
+         <Route path="/contacto" element={<Contact />} />
          <Route path="/habitaciones/:id" element={<RoomDetails />} />
           <Route path="/reservas" element={<ReservationsPage />} />
           <Route path="/admin/usuarios" element={<ProtectedRoute role="admin"> <UsersAdmin/> </ProtectedRoute>} />
