@@ -45,7 +45,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="mb-2">
-                <a href="#" className="footer-link">
+                <a href="/contacto" className="footer-link">
                   Contacto
                 </a>
               </li>
