@@ -24,7 +24,7 @@ export default function AppRouter() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/sobreNosotros" element={<AboutPage />} />
           <Route path="/habitaciones" element={<Rooms />} />
          <Route path="/contacto" element={<Contact />} />
          <Route path="/habitaciones/:id" element={<RoomDetails />} />
