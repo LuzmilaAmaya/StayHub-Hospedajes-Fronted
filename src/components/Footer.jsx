@@ -40,7 +40,7 @@ export default function Footer() {
             <h6 className="fw-bold mb-4">Compañía</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <a href="#" className="footer-link">
+                <a href="/sobreNosotros" className="footer-link">
                   Sobre nosotros
                 </a>
               </li>
