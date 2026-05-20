@@ -31,7 +31,7 @@ export default function AdminRoomsPage() {
         const response = await getRooms();
         setRooms(response.data);
       } catch (error) {
-        console.error("Error al cargar habitaciones:", error);
+        console.error("Error al cargar las habitaciones:", error);
       }
     };
 
