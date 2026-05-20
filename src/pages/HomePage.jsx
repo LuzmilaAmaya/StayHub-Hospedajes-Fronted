@@ -8,22 +8,22 @@ import experienciaImg from "../assets/experiencia.png";
 export default function HomePage() {
   const [rooms, setRooms] = useState([]);
   useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await getRooms();
-        const visibleRooms = response.data.filter(
-          (room) => room.active !== false,
-        );
+  const fetchRooms = async () => {
+    try {
+      const response = await getRooms();
 
-        setRooms(visibleRooms);
-        setRooms(response.data);
-      } catch (error) {
-        console.error("Error cargando habitaciones:", error);
-      }
-    };
+      const visibleRooms = response.data.filter(
+        (room) => room.active !== false
+      );
 
-    fetchRooms();
-  }, []);
+      setRooms(visibleRooms);
+    } catch (error) {
+      console.error("Error cargando habitaciones:", error);
+    }
+  };
+
+  fetchRooms();
+}, []);
 
   return (
     <div>
@@ -56,8 +56,8 @@ export default function HomePage() {
           </div>
 
           <div className="cards-container">
-            {rooms.map((room, index) => (
-              <div className="card-wrapper" key={index}>
+            {rooms.map((room) => (
+              <div className="card-wrapper" key={room._id}>
                 <Link
                   to={`/habitaciones/${room._id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
@@ -66,9 +66,7 @@ export default function HomePage() {
                     <div className="card-img-container">
                       <img
                         src={
-                          room.image ||
-                          room.images?.[0] ||
-                          "https://picsum.photos/400/250"
+                          room.images?.[0] || "https://picsum.photos/400/250"
                         }
                         className="card-img-top"
                         alt={room.name}
@@ -77,9 +75,14 @@ export default function HomePage() {
 
                     <div className="card-body p-4">
                       <h3 className="h4 fw-bold">{room.name}</h3>
+
+                      <p className="text-muted mb-2">{room.description}</p>
+
                       <p className="text-muted mb-0">
                         Desde{" "}
-                        <span className="fw-bold text-dark">{room.price}</span>{" "}
+                        <span className="fw-bold text-dark">
+                          ${room.pricePerNight}
+                        </span>{" "}
                         / noche
                       </p>
                     </div>

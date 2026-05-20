@@ -30,7 +30,7 @@ const Rooms = () => {
     getRooms()
       .then((res) => {
         console.log("ROOMS RESPONSE:", res.data);
-        setRooms(res.data);
+        setRooms(res.data.filter((room) => room.active));
       })
       .catch((err) => {
         console.error("ERROR:", err);

@@ -22,6 +22,8 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
+console.log(JSON.parse(localStorage.getItem("user")));
+
       window.dispatchEvent(new Event("authChange"));
 
       navigate("/");
