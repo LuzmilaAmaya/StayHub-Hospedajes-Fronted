@@ -10,10 +10,11 @@ const initialForm = {
   _id: null,
   name: "",
   type: "",
-  price: "",
+  pricePerNight: "",
   capacity: 1,
-  image: null,
-  preview: "",
+  images: [""],
+  key: "",
+  description: "",
   active: true,
 };
 
@@ -39,22 +40,11 @@ export default function AdminRoomsPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "price" && value < 0) return;
-    if (name === "price" && value.length > 7) return;
+    if (name === "pricePerNight" && value < 0) return;
+    if (name === "pricePerNight" && value.length > 7) return;
     if (name === "capacity" && value > 10) return;
 
     setForm({ ...form, [name]: value });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setForm({
-      ...form,
-      image: file,
-      preview: URL.createObjectURL(file),
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -72,6 +62,7 @@ export default function AdminRoomsPage() {
         localStorage.setItem("rooms", JSON.stringify(updatedRooms));
         setIsEditing(false);
       } else {
+        console.log("FORM:", form);
         const response = await createRoom(form);
 
         const newRooms = [...rooms, response.data];
@@ -88,7 +79,7 @@ export default function AdminRoomsPage() {
   const handleEdit = (room) => {
     setForm({
       ...room,
-      image: room.image || "",
+      images: room.image || "",
     });
     setIsEditing(true);
   };
@@ -122,21 +113,21 @@ export default function AdminRoomsPage() {
     }
   };
   const updateStatus = async (room, newStatus) => {
-  try {
-    const response = await updateRoom(room._id, {
-      status: newStatus,
-    });
+    try {
+      const response = await updateRoom(room._id, {
+        status: newStatus,
+      });
 
-    const updatedRooms = rooms.map((r) =>
-      r._id === room._id ? response.data : r
-    );
+      const updatedRooms = rooms.map((r) =>
+        r._id === room._id ? response.data : r,
+      );
 
-    setRooms(updatedRooms);
-    localStorage.setItem("rooms", JSON.stringify(updatedRooms));
-  } catch (error) {
-    console.error("Error cambiando estado:", error);
-  }
-};
+      setRooms(updatedRooms);
+      localStorage.setItem("rooms", JSON.stringify(updatedRooms));
+    } catch (error) {
+      console.error("Error cambiando estado:", error);
+    }
+  };
 
   return (
     <div className="container py-5">
@@ -151,6 +142,7 @@ export default function AdminRoomsPage() {
             <div className="row g-4">
               <div className="col-md-4">
                 <label className="form-label">Nombre</label>
+
                 <input
                   type="text"
                   className="form-control"
@@ -158,6 +150,20 @@ export default function AdminRoomsPage() {
                   value={form.name}
                   onChange={handleChange}
                   maxLength={40}
+                  required
+                />
+              </div>
+
+              <div className="col-md-4">
+                <label className="form-label">Key</label>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  name="key"
+                  value={form.key}
+                  onChange={handleChange}
+                  placeholder="suite-301"
                   required
                 />
               </div>
@@ -180,8 +186,8 @@ export default function AdminRoomsPage() {
                 <input
                   type="number"
                   className="form-control"
-                  name="price"
-                  value={form.price}
+                  name="pricePerNight"
+                  value={form.pricePerNight}
                   onChange={handleChange}
                   min="0"
                   required
@@ -209,14 +215,33 @@ export default function AdminRoomsPage() {
                 </button>
               </div>
 
+              <div className="col-12">
+                <label className="form-label">Descripción</label>
+
+                <textarea
+                  className="form-control"
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  rows={4}
+                  placeholder="Descripción de la habitación..."
+                />
+              </div>
+
               <div className="col-md-6">
                 <label className="form-label">Imagen</label>
                 <div className="input-group">
                   <input
-                    type="file"
+                    type="text"
                     className="form-control"
-                    accept="image/*"
-                    onChange={handleImageChange}
+                    placeholder="URL de la imagen"
+                    value={form.images[0]}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        images: [e.target.value],
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -279,7 +304,7 @@ export default function AdminRoomsPage() {
                       </td>
                       <td>{room.name}</td>
                       <td>{room.type}</td>
-                      <td>${room.price}</td>
+                      <td>${room.pricePerNight}</td>
                       <td>{room.capacity}</td>
                       <td>
                         {room.status === "disponible" && "🟢 Disponible"}

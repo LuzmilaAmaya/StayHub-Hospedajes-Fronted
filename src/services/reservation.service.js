@@ -8,5 +8,8 @@ export const getMyReservations = () => api.get("/reservations/my");
 
 export const getReservationById = (id) => api.get(`/reservations/${id}`);
 
+export const updateReservation = (id, data) =>
+  api.put(`/reservations/${id}`, data);
+
 export const cancelReservation = (id) =>
   api.patch(`/reservations/${id}/cancel`);

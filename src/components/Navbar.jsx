@@ -107,7 +107,7 @@ export default function Navbar() {
                   >
                     account_circle
                   </span>
-                  {user.name || user.email}
+                  {user.fullName || user.email}
                 </Link>
                 <button
                   className="btn btn-outline-secondary rounded-pill px-4 fw-bold"

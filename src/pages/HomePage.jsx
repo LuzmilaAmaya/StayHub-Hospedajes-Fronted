@@ -8,22 +8,22 @@ import experienciaImg from "../assets/experiencia.png";
 export default function HomePage() {
   const [rooms, setRooms] = useState([]);
   useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await getRooms();
-        const visibleRooms = response.data.filter(
-          (room) => room.active !== false,
-        );
+  const fetchRooms = async () => {
+    try {
+      const response = await getRooms();
 
-        setRooms(visibleRooms);
-        setRooms(response.data);
-      } catch (error) {
-        console.error("Error cargando habitaciones:", error);
-      }
-    };
+      const visibleRooms = response.data.filter(
+        (room) => room.active !== false
+      );
 
-    fetchRooms();
-  }, []);
+      setRooms(visibleRooms);
+    } catch (error) {
+      console.error("Error cargando habitaciones:", error);
+    }
+  };
+
+  fetchRooms();
+}, []);
 
   return (
     <div>
