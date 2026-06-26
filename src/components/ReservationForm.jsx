@@ -12,8 +12,6 @@ const getDiffDays = (from, to) => {
 };
 
 export default function ReservationForm({ id, pricePerNight }) {
-
-   console.log("ROOM ID EN FORM:", id);
    
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -99,16 +97,12 @@ export default function ReservationForm({ id, pricePerNight }) {
       localStorage.setItem("checkIn", form.checkIn);
       localStorage.setItem("checkOut", form.checkOut);
 
-console.log("id antes de createPayment:", id);
-
       const paymentRes = await createPayment({
         roomId: id,
         checkIn: form.checkIn,
         checkOut: form.checkOut,
         guestId: user._id,
       });
-
-        console.log("RESPUESTA PAYMENT:", paymentRes.data);
 
       window.location.href = paymentRes.data.init_point;
     } catch (err) {

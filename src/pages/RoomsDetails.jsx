@@ -7,8 +7,6 @@ const RoomDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
- console.log("ROOM ID:", id);
-
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,11 +18,8 @@ const RoomDetails = () => {
   useEffect(() => {
   if (!id) return;
 
-  console.log("ROOM ID EN DETALLE:", id);
-
   getRoomById(id)
     .then((res) => setRoom(res.data))
-    .catch((err) => console.log("ERROR API:", err))
     .finally(() => setLoading(false));
 }, [id]);
 

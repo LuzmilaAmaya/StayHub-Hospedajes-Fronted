@@ -62,7 +62,6 @@ export default function AdminRoomsPage() {
         localStorage.setItem("rooms", JSON.stringify(updatedRooms));
         setIsEditing(false);
       } else {
-        console.log("FORM:", form);
         const response = await createRoom(form);
 
         const newRooms = [...rooms, response.data];

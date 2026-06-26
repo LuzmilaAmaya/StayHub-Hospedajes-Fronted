@@ -26,11 +26,11 @@ const Rooms = () => {
       console.error("Error cambiando visibilidad:", error);
     }
   };
-  useEffect(() => {
+  useEffect(() => {z
     getRooms()
-      .then((res) => {
-        console.log("ROOMS RESPONSE:", res.data);
-        setRooms(res.data.filter((room) => room.active));
+      .then((rooms) => {
+        const visibleRooms = rooms.filter((room) => room.active);
+        setRooms(visibleRooms);
       })
       .catch((err) => {
         console.error("ERROR:", err);
